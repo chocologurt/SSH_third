@@ -40,7 +40,7 @@ namespace SSH3.Account
             ////HasPhoneNumber = String.IsNullOrEmpty(manager.GetPhoneNumber(User.Identity.GetUserId()));
 
             //// Enable this after setting up two-factor authentientication
-            //PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId()); //?? String.Empty;
+            //?? String.Empty;
 
             //TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
 
@@ -52,16 +52,16 @@ namespace SSH3.Account
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(Context.User.Identity.GetUserId());
             string userpassword = currentUser.PasswordHash;
-            string userPhone = currentUser.PhoneNumber;
+            //string userPhone = currentUser.PhoneNumber;
             TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
-
+            PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId());
             if (!IsPostBack)
             {
                 // Determine the sections to render
 
 
                 ChangePassword.Visible = true;
-                PhoneNumber.Text = userPhone;
+                
 
 
                 //if (!IsPostBack)

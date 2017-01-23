@@ -33,7 +33,7 @@
                         for details on setting up this ASP.NET application to support two-factor authentication using SMS.
                         Uncomment the following blocks after you have set up two-factor authentication
                     --%>
-                    <%--
+                    <
                     <dt>Phone Number:</dt>
                     <% if (HasPhoneNumber)
                        { %>
@@ -49,7 +49,7 @@
                         <asp:LinkButton Text="[Remove]" OnClick="RemovePhone_Click" runat="server" />
                     </dd>
                     <% } %>
-                    --%>
+                    
 
                     <dt>Two-Factor Authentication:</dt>
                     <dd>
@@ -59,17 +59,17 @@
                         </p>
                         <% if (TwoFactorEnabled)
                           { %> 
-                        <%--
-                        Enabled
+                        
+<%--                        Enabled--%>
                         <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
-                        --%>
+                        
                         <% }
                           else
                           { %> 
-                        <%--
-                        Disabled
+                        
+                      <%--  Disabled--%>
                         <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
-                        --%>
+                        
                         <% } %>
                     </dd>
                 </dl>
