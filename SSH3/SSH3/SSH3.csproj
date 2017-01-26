@@ -236,6 +236,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Imagesss\introductions_800_clr_10909-1.png" />
+    <Content Include="Imagesss\user_mentee_med.jpg" />
     <Content Include="References\GoogleReCaptcha.dll" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />

@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Data.SqlClient;
 using SSH3.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace SSH3.Account
 {
@@ -61,6 +62,53 @@ namespace SSH3.Account
                 var user2 = manager2.FindByName(Context.User.Identity.GetUserName());
                 string username = user2.UserName;
 
+                string currentPassword = "";
+                string newPassword = "";
+
+               if (imageCurrentPassword.Visible == true)
+                {
+                    string fileExt = Path.GetExtension(imageCurrentPasswordControl.PostedFile.FileName);
+                    if (fileExt == ".jpg")
+                    {
+                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                        byte[] imgbyte = imageCurrentPasswordControl.FileBytes;
+                        //convert byte[] to Base64 string
+                        string base64ImgString = Convert.ToBase64String(imgbyte);
+                        currentPassword = base64ImgString;
+                    }
+                    else
+                    {
+                        ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                    }
+                }
+               else if(textCurrentPassword.Visible == true)
+                {
+                   
+                        currentPassword = CurrentPassword.Text;
+                    
+                }
+                if (imageNewPassword.Visible == true)
+                {
+                    string fileExt = Path.GetExtension(newImagePasswordControl.PostedFile.FileName);
+                    if (fileExt == ".jpg")
+                    {
+                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                        byte[] imgbyte = newImagePasswordControl.FileBytes;
+                        //convert byte[] to Base64 string
+                        string base64ImgString = Convert.ToBase64String(imgbyte);
+                        newPassword = base64ImgString;
+                    }
+                    else
+                    {
+                        ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                    }
+                }
+                else if (textNewPassword.Visible == true)
+                {
+                   
+                        newPassword = NewPassword.Text;
+                    
+                }
 
 
                 var myPasswordHasher = new PasswordHasher();
@@ -90,7 +138,7 @@ namespace SSH3.Account
 
                 for (int i = 0; i < pwdList.Count(); i++)
                 {
-                    PasswordVerificationResult results = myPasswordHasher.VerifyHashedPassword(pwdList[i], NewPassword.Text);
+                    PasswordVerificationResult results = myPasswordHasher.VerifyHashedPassword(pwdList[i], newPassword);
                     resultsList.Add(results);
                 }
 
@@ -104,13 +152,13 @@ namespace SSH3.Account
                 {
                     var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                     var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-                    IdentityResult result = manager.ChangePassword(User.Identity.GetUserId(), CurrentPassword.Text, NewPassword.Text);
+                    IdentityResult result = manager.ChangePassword(User.Identity.GetUserId(), currentPassword, newPassword);
                     if (result.Succeeded)
                     {
 
                         if (pwdList.Count < 5)
                         {
-                            string hashedpassword = myPasswordHasher.HashPassword(NewPassword.Text);
+                            string hashedpassword = myPasswordHasher.HashPassword(newPassword);
 
                             string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                             SqlConnection con2 = new SqlConnection(cs2);
@@ -129,7 +177,7 @@ namespace SSH3.Account
                         else
                         {
 
-                            string hashedpassword = myPasswordHasher.HashPassword(NewPassword.Text);
+                            string hashedpassword = myPasswordHasher.HashPassword(newPassword);
 
                             string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                             SqlConnection con4 = new SqlConnection(cs4);
@@ -188,6 +236,34 @@ namespace SSH3.Account
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
+            }
+        }
+
+        protected void CurrentPasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.CurrentPasswordSelection.SelectedValue == "1")
+            {
+                this.textCurrentPassword.Visible = true;
+                this.imageCurrentPassword.Visible = false;
+            }
+            else if (this.CurrentPasswordSelection.SelectedValue == "2")
+            {
+                this.textCurrentPassword.Visible = false;
+                this.imageCurrentPassword.Visible = true;
+            }
+        }
+
+        protected void NewPasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.NewPasswordSelection.SelectedValue == "1")
+            {
+                this.textNewPassword.Visible = true;
+                this.imageNewPassword.Visible = false;
+            }
+            else if (this.NewPasswordSelection.SelectedValue == "2")
+            {
+                this.textNewPassword.Visible = false;
+                this.imageNewPassword.Visible = true;
             }
         }
     }
