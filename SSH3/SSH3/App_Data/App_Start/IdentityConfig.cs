@@ -128,7 +128,7 @@ public class SmsService : IIdentityMessageService
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(0.5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             manager.EmailService = new EmailService();

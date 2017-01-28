@@ -36,20 +36,21 @@
                     <
                     <dt>Phone Number:</dt>
                     <% if (HasPhoneNumber)
-                       { %>
+                        { %>
                     <dd>
                         <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Add]" />
                     </dd>
                     <% }
-                       else
-                       { %>
+                        else
+                        { %>
                     <dd>
                         <asp:Label Text="" ID="PhoneNumber" runat="server" />
-                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Change]" /> &nbsp;|&nbsp;
+                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Change]" />
+                        &nbsp;|&nbsp;
                         <asp:LinkButton Text="[Remove]" OnClick="RemovePhone_Click" runat="server" />
                     </dd>
                     <% } %>
-                    
+
 
                     <dt>Two-Factor Authentication:</dt>
                     <dd>
@@ -58,22 +59,24 @@
                             for details on setting up this ASP.NET application to support two-factor authentication.
                         </p>
                         <% if (TwoFactorEnabled)
-                          { %> 
-                        
-<%--                        Enabled--%>
+                            { %>
+
+                        <%--                        Enabled--%>
                         <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
-                        
+
                         <% }
-                          else
-                          { %> 
-                        
-                      <%--  Disabled--%>
+                            else
+                            { %>
+
+                        <%--  Disabled--%>
                         <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
-                        
+
                         <% } %>
                     </dd>
                     <dt>Profile Picture:</dt>
-                     <dd> <asp:HyperLink NavigateUrl="/Account/AddOrChangeProfilePic" Text="[Add/Change]" Visible="true" ID="ProfilePic" runat="server" /></dd>
+                    <dd>
+                       <asp:HyperLink NavigateUrl="/Account/AddorChangeProfilePic" Text="[Add/Change]" ID="AddorChangeProfilePic" runat="server" />
+                    </dd>
                 </dl>
             </div>
         </div>

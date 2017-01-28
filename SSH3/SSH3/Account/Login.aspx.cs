@@ -13,6 +13,12 @@ namespace SSH3.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("~/Default.aspx"); //redirect to main page
+            }
+
             RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
             ForgotPasswordHyperLink.NavigateUrl = "Forgot";
