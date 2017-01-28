@@ -43,27 +43,36 @@ namespace SSH3.Account
             }
         }
 
-      
+
         protected void Deletebtn_Click(object sender, EventArgs e)
         {
-            string skill_name = GridView1.SelectedRow.Cells[1].Text;
+           
+            if (GridView1.SelectedIndex != -1)
+            {
+                string skill_name = GridView1.SelectedRow.Cells[1].Text;
 
 
 
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var user = manager.FindByName(Context.User.Identity.GetUserName());
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var user = manager.FindByName(Context.User.Identity.GetUserName());
 
-            string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            SqlConnection con3 = new SqlConnection(cs3);
-            SqlCommand cmd3 =
-                new SqlCommand("DELETE FROM userSkillSet WHERE userName = @username AND NameOfSkill = @skill ", con3);
-            cmd3.Parameters.AddWithValue("@username", user.UserName);
-            cmd3.Parameters.AddWithValue("@skill", skill_name);
-            con3.Open();
-            cmd3.ExecuteNonQuery();
-            con3.Close();
+                string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                SqlConnection con3 = new SqlConnection(cs3);
+                SqlCommand cmd3 =
+                    new SqlCommand("DELETE FROM userSkillSet WHERE userName = @username AND NameOfSkill = @skill ", con3);
+                cmd3.Parameters.AddWithValue("@username", user.UserName);
+                cmd3.Parameters.AddWithValue("@skill", skill_name);
+                con3.Open();
+                cmd3.ExecuteNonQuery();
+                con3.Close();
 
-            Response.Redirect("~/Account/Manage?m=DeleteSkillSuccess");
+                Response.Redirect("~/Account/Manage?m=DeleteSkillSuccess");
+            }
+            else
+            {
+                ErrorMessage.Text = "Nothing was deleted. Please select a row to delete it.";
+               
+            }
         }
 
         // The return type can be changed to IEnumerable, however to support

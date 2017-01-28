@@ -1,17 +1,15 @@
 ﻿<%@ Page Title="ChangeSkill" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DeleteSkill.aspx.cs" EnableEventValidation = "false" Inherits="SSH3.Account.ChangeSkill" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <p class="text-danger">
-        <asp:Literal runat="server" ID="ErrorMessage" />
-    </p>
+    
     <div class="form-horizontal">
         <section id="addSkillForm">
             <div class="form-horizontal">
                 <hr />
                 <h2>Summary of the type of Skills you have.</h2>
                 <p class="text-danger">
-                    <asp:Literal runat="server" ID="Literal1" />
-                </p>
+        <asp:Literal runat="server" ID="ErrorMessage"  />
+    </p>
                 <div class="form-horizontal">
                     <section id="changeSkillForm">
                         <div class="form-horizontal">
