@@ -33,7 +33,7 @@ namespace SSH3.Account
                 string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 SqlCommand cmd =
-                    new SqlCommand("SELECT imageName FROM userProfilePics WHERE Username = @userName", con);
+                    new SqlCommand("SELECT userPic FROM users WHERE userID = @userName", con);
                 cmd.Parameters.AddWithValue("@userName", username);
                 con.Open();
 
@@ -41,7 +41,7 @@ namespace SSH3.Account
                 {
                     while (reader.Read())
                     {
-                        filename = Convert.ToString(reader["imageName"]);
+                        filename = Convert.ToString(reader["userPic"]);
                     }
                 }
 
@@ -99,7 +99,7 @@ namespace SSH3.Account
                     string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                     SqlConnection con2 = new SqlConnection(cs2);
                     SqlCommand cmd2 =
-                        new SqlCommand("SELECT imageName FROM userProfilePics WHERE Username = @userName", con2);
+                        new SqlCommand("SELECT userPic FROM users WHERE userID = @userName", con2);
                     cmd2.Parameters.AddWithValue("@userName", username);
                     con2.Open();
 
@@ -107,7 +107,7 @@ namespace SSH3.Account
                     {
                         while (reader.Read())
                         {
-                            data = Convert.ToString(reader["imageName"]);
+                            data = Convert.ToString(reader["userPic"]);
                         }
                     }
 
@@ -133,15 +133,21 @@ namespace SSH3.Account
                         //cmd3.ExecuteNonQuery();
                         //con3.Close();
 
+                        //imgPath = username + "_" + data;
+                        //string completepath = Server.MapPath(@"~\UserProfilePics\") + imgPath;
+                        //File.Delete(completepath);
+
                         string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                         SqlConnection con = new SqlConnection(cs);
                         SqlCommand cmd =
-                            new SqlCommand("UPDATE userProfilePics SET imageName = @image WHERE Username = @userId", con);
+                            new SqlCommand("UPDATE users SET userPic = @image WHERE userID = @userId", con);
                         cmd.Parameters.AddWithValue("@image", filename);
                         cmd.Parameters.AddWithValue("@userId", username);
                         con.Open();
                         cmd.ExecuteNonQuery();
                         con.Close();
+
+                       
 
                         Response.Redirect("~/Account/Manage?m=ChangePicSuccess");
                     }
@@ -150,9 +156,10 @@ namespace SSH3.Account
                         string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                         SqlConnection con4 = new SqlConnection(cs4);
                         SqlCommand cmd4 =
-                            new SqlCommand("INSERT INTO userProfilePics (Username, imageName) VALUES(@userId, @image)", con4);
-                        cmd4.Parameters.AddWithValue("@userId", username);
+                            new SqlCommand("UPDATE users SET userPic = @image WHERE userID = @userId", con4);
                         cmd4.Parameters.AddWithValue("@image", filename);
+                        cmd4.Parameters.AddWithValue("@userId", username);
+                       
                         con4.Open();
                         cmd4.ExecuteNonQuery();
                         con4.Close();

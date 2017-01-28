@@ -72,7 +72,7 @@ namespace SSH3.Account
                         new SqlCommand("INSERT INTO users (userID, userInstitution, userMode, userDesignation, userFieldOfIndustry, FullName) VALUES(@userId, @institution,@registrationMode, @designation, @userFOI, @fullname )", con);
                     cmd.Parameters.AddWithValue("@userId", mentorUsername.Text);
                     cmd.Parameters.AddWithValue("@institution", MentorInstitution.Text);
-                    cmd.Parameters.AddWithValue("@registrationMode", 1);
+                    cmd.Parameters.AddWithValue("@registrationMode", 2);
                     cmd.Parameters.AddWithValue("@designation", MentorDesignation.Text);
                     cmd.Parameters.AddWithValue("@userFOI", Convert.ToString(MentorFOI.SelectedValue));
                     cmd.Parameters.AddWithValue("@fullname", mentorFullName.Text);
