@@ -22,35 +22,44 @@ namespace SSH3.Account
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(Context.User.Identity.GetUserId());
-            var username = currentUser.UserName;
-
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            SqlConnection con = new SqlConnection(cs);
-            SqlCommand cmd =
-                new SqlCommand("SELECT imageName FROM userProfilePics WHERE Username = @userName", con);
-            cmd.Parameters.AddWithValue("@userName", username);
-            con.Open();
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            if (Context.User.Identity.IsAuthenticated)
             {
-                while (reader.Read())
+
+
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var currentUser = manager.FindById(Context.User.Identity.GetUserId());
+                var username = currentUser.UserName;
+
+                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                SqlConnection con = new SqlConnection(cs);
+                SqlCommand cmd =
+                    new SqlCommand("SELECT imageName FROM userProfilePics WHERE Username = @userName", con);
+                cmd.Parameters.AddWithValue("@userName", username);
+                con.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    filename = Convert.ToString(reader["imageName"]);
+                    while (reader.Read())
+                    {
+                        filename = Convert.ToString(reader["imageName"]);
+                    }
+                }
+
+                con.Close();
+
+                if (!String.IsNullOrEmpty(filename))
+                {
+                    string path = Server.MapPath("~/UserProfilePics/");
+                    imgPath = username + "_" + filename;
+                    System.Drawing.Image img = System.Drawing.Image.FromFile(string.Concat(path, imgPath));
+
+                    img = resizeImage(img);
+                    imgDemo.ImageUrl = @"~\UserProfilePics\" + imgPath;
                 }
             }
-
-            con.Close();
-
-            if (!String.IsNullOrEmpty(filename))
+            else
             {
-                string path = Server.MapPath("~/UserProfilePics/");
-                imgPath = username + "_" + filename;
-                System.Drawing.Image img = System.Drawing.Image.FromFile(string.Concat(path, imgPath));
-
-                img = resizeImage(img);
-                imgDemo.ImageUrl = @"~\UserProfilePics\" + imgPath;
+                Response.Redirect("~/Account/Login.aspx"); //redirect to main page
             }
         }
 

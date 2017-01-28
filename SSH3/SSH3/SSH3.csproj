@@ -206,7 +206,10 @@
     <Content Include="About.aspx" />
     <Content Include="Account\AddorChangeProfilePic.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
+    <Content Include="Account\AddSkill.aspx" />
+    <Content Include="Account\DeleteSkill.aspx" />
     <Content Include="Account\Confirm.aspx" />
+    <Content Include="Account\DeactivateAccount.aspx" />
     <Content Include="Account\EmailBeingSent.aspx" />
     <Content Include="Account\Forgot.aspx" />
     <Content Include="Account\Lockout.aspx" />
@@ -304,12 +307,33 @@
     <Compile Include="Account\AddPhoneNumber.aspx.designer.cs">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\AddSkill.aspx.cs">
+      <DependentUpon>AddSkill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\AddSkill.aspx.designer.cs">
+      <DependentUpon>AddSkill.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\DeleteSkill.aspx.cs">
+      <DependentUpon>DeleteSkill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\DeleteSkill.aspx.designer.cs">
+      <DependentUpon>DeleteSkill.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\Confirm.aspx.cs">
       <DependentUpon>Confirm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\Confirm.aspx.designer.cs">
       <DependentUpon>Confirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\DeactivateAccount.aspx.cs">
+      <DependentUpon>DeactivateAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\DeactivateAccount.aspx.designer.cs">
+      <DependentUpon>DeactivateAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\EmailBeingSent.aspx.cs">
       <DependentUpon>EmailBeingSent.aspx</DependentUpon>

@@ -15,20 +15,27 @@ namespace SSH3.Account
     {
         protected void PhoneNumber_Click(object sender, EventArgs e)
         {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var code = manager.GenerateChangePhoneNumberToken(User.Identity.GetUserId(), PhoneNumber.Text);
-            if (manager.SmsService != null)
+            if (Context.User.Identity.IsAuthenticated)
             {
-                var message = new IdentityMessage
+                var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var code = manager.GenerateChangePhoneNumberToken(User.Identity.GetUserId(), PhoneNumber.Text);
+                if (manager.SmsService != null)
                 {
-                    Destination = PhoneNumber.Text,
-                    Body = "Your security code is " + code
-                };
+                    var message = new IdentityMessage
+                    {
+                        Destination = PhoneNumber.Text,
+                        Body = "Your security code is " + code
+                    };
 
-                manager.SmsService.Send(message);
+                    manager.SmsService.Send(message);
+                }
+
+                Response.Redirect("/Account/VerifyPhoneNumber?PhoneNumber=" + HttpUtility.UrlEncode(PhoneNumber.Text));
             }
-
-            Response.Redirect("/Account/VerifyPhoneNumber?PhoneNumber=" + HttpUtility.UrlEncode(PhoneNumber.Text));
+            else
+            {
+                Response.Redirect("~/Account/Login.aspx"); //redirect to main page
+            }
         }
     }
 }

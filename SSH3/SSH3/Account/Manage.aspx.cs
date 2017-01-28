@@ -47,53 +47,60 @@ namespace SSH3.Account
             //LoginsCount = manager.GetLogins(User.Identity.GetUserId()).Count;
 
             //var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-
-
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(Context.User.Identity.GetUserId());
-            string userpassword = currentUser.PasswordHash;
-            //string userPhone = currentUser.PhoneNumber;
-            TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
-            PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId());
-            if (!IsPostBack)
+            if (Context.User.Identity.IsAuthenticated)
             {
-                // Determine the sections to render
-
-
-                ChangePassword.Visible = true;
-                
-
-
-                //if (!IsPostBack)
-                //{
-                //    // Determine the sections to render
-                //    if (HasPassword(manager))
-                //    {
-                //        ChangePassword.Visible = true;
-                //    }
-                //    else
-                //    {
-                //        CreatePassword.Visible = true;
-                //        ChangePassword.Visible = false;
-                //    }
-
-                // Render success message
-                var message = Request.QueryString["m"];
-                if (message != null)
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var currentUser = manager.FindById(Context.User.Identity.GetUserId());
+                string userpassword = currentUser.PasswordHash;
+                //string userPhone = currentUser.PhoneNumber;
+                TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
+                PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId());
+                if (!IsPostBack)
                 {
-                    // Strip the query string from action
-                    Form.Action = ResolveUrl("~/Account/Manage");
+                    // Determine the sections to render
 
-                    SuccessMessage =
-                        message == "ChangePwdSuccess" ? "Your password has been changed."
-                        : message == "SetPwdSuccess" ? "Your password has been set."
-                        : message == "RemoveLoginSuccess" ? "The account was removed."
-                        : message == "AddPhoneNumberSuccess" ? "Phone number has been added"
-                        : message == "RemovePhoneNumberSuccess" ? "Phone number was removed"
-                        : message == "ChangePicSuccess" ? "Profile Picture was successfully changed"
-                        : String.Empty;
-                    successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
+
+                    ChangePassword.Visible = true;
+
+
+
+                    //if (!IsPostBack)
+                    //{
+                    //    // Determine the sections to render
+                    //    if (HasPassword(manager))
+                    //    {
+                    //        ChangePassword.Visible = true;
+                    //    }
+                    //    else
+                    //    {
+                    //        CreatePassword.Visible = true;
+                    //        ChangePassword.Visible = false;
+                    //    }
+
+                    // Render success message
+                    var message = Request.QueryString["m"];
+                    if (message != null)
+                    {
+                        // Strip the query string from action
+                        Form.Action = ResolveUrl("~/Account/Manage");
+
+                        SuccessMessage =
+                            message == "ChangePwdSuccess" ? "Your password has been changed."
+                            : message == "SetPwdSuccess" ? "Your password has been set."
+                            : message == "RemoveLoginSuccess" ? "The account was removed."
+                            : message == "AddPhoneNumberSuccess" ? "Phone number has been added"
+                            : message == "RemovePhoneNumberSuccess" ? "Phone number was removed"
+                            : message == "ChangePicSuccess" ? "Profile Picture was successfully changed"
+                            : message == "AddSkillSuccess" ? "Your new Skill was added."
+                            : message == "DeleteSkillSuccess" ? "Skill was deleted."
+                            : String.Empty;
+                        successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
+                    }
                 }
+            }
+            else
+            {
+                Response.Redirect("~/Account/Login.aspx"); //redirect to main page
             }
         }
 

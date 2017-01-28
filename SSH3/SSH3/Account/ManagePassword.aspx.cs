@@ -29,29 +29,36 @@ namespace SSH3.Account
         protected void Page_Load(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            if (!IsPostBack)
+            if (Context.User.Identity.IsAuthenticated)
             {
-                // Determine the sections to render
-                if (HasPassword(manager))
+                if (!IsPostBack)
                 {
-                    changePasswordHolder.Visible = true;
-                }
-                else
-                {
-                    setPassword.Visible = true;
-                    changePasswordHolder.Visible = false;
-                }
+                    // Determine the sections to render
+                    if (HasPassword(manager))
+                    {
+                        changePasswordHolder.Visible = true;
+                    }
+                    else
+                    {
+                        setPassword.Visible = true;
+                        changePasswordHolder.Visible = false;
+                    }
 
-                // Render success message
-                var message = Request.QueryString["m"];
-                if (message != null)
-                {
-                    // Strip the query string from action
-                    Form.Action = ResolveUrl("~/Account/Manage");
+                    // Render success message
+                    var message = Request.QueryString["m"];
+                    if (message != null)
+                    {
+                        // Strip the query string from action
+                        Form.Action = ResolveUrl("~/Account/Manage");
+                    }
                 }
             }
+            else
+            {
+                Response.Redirect("~/Login.aspx"); //redirect to main page
+            }
         }
+
 
         protected void ChangePassword_Click(object sender, EventArgs e)
         {

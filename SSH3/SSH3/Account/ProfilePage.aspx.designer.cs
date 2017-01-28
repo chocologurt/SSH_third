@@ -58,15 +58,6 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.Button SkillsOwnedButton;
         
         /// <summary>
-        /// userPostsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button userPostsButton;
-        
-        /// <summary>
         /// content control.
         /// </summary>
         /// <remarks>
@@ -137,14 +128,5 @@ namespace SSH3.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View skillsOwnedView;
-        
-        /// <summary>
-        /// userPostsView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View userPostsView;
     }
 }

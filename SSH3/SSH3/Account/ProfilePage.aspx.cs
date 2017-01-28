@@ -16,7 +16,7 @@ namespace SSH3.Account
                 MultiView1.ActiveViewIndex = 0;
                 personalInfoButton.CssClass = "btn btn-info";
                 SkillsOwnedButton.CssClass = "btn btn-primary";
-                userPostsButton.CssClass = "btn btn-primary";
+               
             }
         }
 
@@ -25,7 +25,7 @@ namespace SSH3.Account
             MultiView1.ActiveViewIndex = 0;
             personalInfoButton.CssClass = "btn btn-info";
             SkillsOwnedButton.CssClass = "btn btn-primary";
-            userPostsButton.CssClass = "btn btn-primary";
+            
         }
 
         protected void SkillsOwnedButton_Click(object sender, EventArgs e)
@@ -33,15 +33,9 @@ namespace SSH3.Account
             MultiView1.ActiveViewIndex = 1;
             personalInfoButton.CssClass = "btn btn-primary";
             SkillsOwnedButton.CssClass = "btn btn-info";
-            userPostsButton.CssClass = "btn btn-primary";
+            
         }
 
-        protected void userPostsButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 2;
-            personalInfoButton.CssClass = "btn btn-primary";
-            SkillsOwnedButton.CssClass = "btn btn-primary";
-            userPostsButton.CssClass = "btn btn-info";
-        }
+     
     }
 }

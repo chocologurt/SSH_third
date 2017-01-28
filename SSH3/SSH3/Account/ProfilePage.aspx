@@ -8,7 +8,7 @@
         <div id="row">
             <asp:Button runat="server" ID="personalInfoButton" CssClass="btn btn-primary" Text="Personal Information" OnClick="personalInfoButton_Click"/>
             <asp:Button runat="server" ID="SkillsOwnedButton" CssClass="btn btn-primary" Text="Skilled Owned" OnClick="SkillsOwnedButton_Click" />
-            <asp:Button runat="server" ID="userPostsButton" CssClass="btn btn-primary" Text="My Posts" OnClick="userPostsButton_Click" />
+           
         </div>
 
         <div id="content" runat="server">
@@ -26,9 +26,6 @@
                     <div id="skillsOwnedContent">
                         <asp:Label runat="server" Text="Testing for Skills Owned" Font-Size="XX-Large"></asp:Label>
                     </div>
-                </asp:View>
-                <asp:View ID="userPostsView" runat="server">
-                    <asp:Label runat="server" Text="Testing for User Posts" Font-Size="XX-Large"></asp:Label>
                 </asp:View>
             </asp:MultiView>
         </div>

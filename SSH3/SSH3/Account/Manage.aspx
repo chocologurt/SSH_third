@@ -33,7 +33,7 @@
                         for details on setting up this ASP.NET application to support two-factor authentication using SMS.
                         Uncomment the following blocks after you have set up two-factor authentication
                     --%>
-                    <
+                    <%--<--%>
                     <dt>Phone Number:</dt>
                     <% if (HasPhoneNumber)
                         { %>
@@ -54,10 +54,10 @@
 
                     <dt>Two-Factor Authentication:</dt>
                     <dd>
-                        <p>
+                        <%--<p>
                             There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                             for details on setting up this ASP.NET application to support two-factor authentication.
-                        </p>
+                        </p>--%>
                         <% if (TwoFactorEnabled)
                             { %>
 
@@ -76,6 +76,15 @@
                     <dt>Profile Picture:</dt>
                     <dd>
                        <asp:HyperLink NavigateUrl="/Account/AddorChangeProfilePic" Text="[Add/Change]" ID="AddorChangeProfilePic" runat="server" />
+                    </dd>
+                    <dt>Skills Owned:</dt>
+                    <dd>
+                        <asp:HyperLink NavigateUrl="/Account/AddSkill" Text="[Add]" ID="AddSkills" runat="server" />
+                        <asp:HyperLink NavigateUrl="/Account/DeleteSkill" Text="[Delete]" ID="DeleteSkills" runat="server" />
+                    </dd>
+                    <dt>Deactivate Account:</dt>
+                    <dd> 
+                        <asp:HyperLink NavigateUrl="/Account/DeactivateAccount" Text="[Deactivate]" ID="DeactivateAccount" runat="server" />
                     </dd>
                 </dl>
             </div>
