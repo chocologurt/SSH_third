@@ -31,7 +31,10 @@ namespace SSH3
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(30),
+                        //validateInterval: TimeSpan.FromMinutes(30),
+                        //Time interval set to 0, means the framework on every request will compare user's security stamp with the database
+                        //If stamp in the cookie does not match the stamp on the database, user's auth-cookie is thrown out, asking them to log out
+                        validateInterval: TimeSpan.FromMinutes(0),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 },
                 SlidingExpiration = false,

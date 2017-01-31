@@ -2,8 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
-    <div class="form-horizontal">
-        <section id="addSkillForm">
+    <div class="form-horizontal"> 
             <div class="form-horizontal">
                 <hr />
                 <h2>Summary of the type of Skills you have.</h2>
@@ -35,6 +34,5 @@
                     </section>
                 </div>
             </div>
-        </section>
     </div>
 </asp:Content>

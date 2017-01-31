@@ -207,6 +207,7 @@
     <Content Include="Account\AddorChangeProfilePic.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\AddSkill.aspx" />
+    <Content Include="Account\ConfirmDeactivation.aspx" />
     <Content Include="Account\DeleteSkill.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\DeactivateAccount.aspx" />
@@ -313,6 +314,13 @@
     </Compile>
     <Compile Include="Account\AddSkill.aspx.designer.cs">
       <DependentUpon>AddSkill.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ConfirmDeactivation.aspx.cs">
+      <DependentUpon>ConfirmDeactivation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ConfirmDeactivation.aspx.designer.cs">
+      <DependentUpon>ConfirmDeactivation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\DeleteSkill.aspx.cs">
       <DependentUpon>DeleteSkill.aspx</DependentUpon>

@@ -19,6 +19,18 @@
             </div>
         </div>
         <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="PasswordSelection" CssClass="col-md-2 control-label">Type of Password</asp:Label>
+                        <div class="col-md-10">
+                            <asp:RadioButtonList ID="PasswordSelection" runat="server" AutoPostBack="true" OnSelectedIndexChanged="PasswordSelection_SelectedIndexChanged">
+                                <asp:ListItem Text="I want text as a Password" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="I want an image as my Password" Value="2"></asp:ListItem>
+                            </asp:RadioButtonList>
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="PasswordSelection"
+                                CssClass="text-danger" ErrorMessage="This is required to choose a selection" />
+                        </div>
+                    </div>
+        <div id="textPassword" runat="server" visible="false">
+        <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Password" CssClass="col-md-2 control-label">Password</asp:Label>
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
@@ -36,6 +48,17 @@
                     CssClass="text-danger" Display="Dynamic" ErrorMessage="The password and confirmation password do not match." />
             </div>
         </div>
+        </div>
+        <div id="imagePassword" runat="server" visible="false">
+            <div class="form-group">
+                            <asp:Label runat="server" AssociatedControlID="imagePasswordControl" CssClass="col-md-2 control-label">Please choose an image</asp:Label>
+                            <div class="col-md-10">
+                                <asp:FileUpload runat="server" ID="imagePasswordControl" />
+                                <%--  <asp:RequiredFieldValidator runat="server" ControlToValidate="imagePasswordControl"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The image field is required." />--%>
+                            </div>
+                        </div>
+                    </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <asp:Button runat="server" OnClick="Reset_Click" Text="Reset" CssClass="btn btn-default" />
