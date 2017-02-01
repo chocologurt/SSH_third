@@ -13,41 +13,52 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Email" CssClass="col-md-2 control-label">Email</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" />
+                <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                    CssClass="text-danger" ErrorMessage="The email field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The email field is required." />
             </div>
         </div>
       <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Username" CssClass="col-md-2 control-label">Username</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Username" CssClass="form-control" TextMode="SingleLine" />
+                <asp:TextBox runat="server" ID="Username" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Username"
-                    CssClass="text-danger" ErrorMessage="The username field is required" />
+                    CssClass="text-danger"  Display="Dynamic" ErrorMessage="The username field is required" />
             </div>
         </div>
         <div class="form-group">
           <asp:Label runat="server" AssociatedControlID="fullName" CssClass="col-md-2 control-label">Full Name</asp:Label>
           <div class="col-md-10">
-              <asp:TextBox runat="server" ID="fullName" CssClass="form-control" TextMode="SingleLine" />
+              <asp:TextBox runat="server" ID="fullName" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
               <asp:RequiredFieldValidator runat="server" ControlToValidate="fullName"
-                    CssClass="text-danger" ErrorMessage="The Full Name field is required" />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Full Name field is required" />
+              <%-- Allow spaces in Name [*] is recurrence of defined group  DONE--%>
+              <asp:RegularExpressionValidator runat="server" ControlToValidate="fullName"
+                  ValidationExpression="([A-Za-z])+( [A-Za-z]+)*"
+                  CssClass="text-danger" Display="Dynamic" ErrorMessage="No Numbers & Symbols are allowed in the Name field." />
           </div>
         </div>
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="userInstitution" CssClass="col-md-2 control-label">Your Institution</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="userInstitution" CssClass="form-control" TextMode="SingleLine" />
+                <asp:TextBox runat="server" ID="userInstitution" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="userInstitution"
-                    CssClass="text-danger" ErrorMessage="The Instution field is required" />
-            </div>
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Instution field is required" />
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="userInstitution"
+                    ValidationExpression="([A-za-z ]{0,25})"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Institution is too long." />
+                 </div>
         </div>
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="userPhoneNumber" CssClass="col-md-2 control-label">Your Phone Number</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="userPhoneNumber" CssClass="form-control" TextMode="Phone" />
+                <asp:TextBox runat="server" ID="userPhoneNumber" CssClass="form-control" TextMode="Phone" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="userPhoneNumber"
-                    CssClass="text-danger" ErrorMessage="The Phone Number field is required" />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Phone Number field is required" />
+                <%-- done --%>
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="userPhoneNumber"
+                    ValidationExpression="([\d]{8})"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Invalid Phone number" />
             </div>
         </div>
         <div class="form-group">
@@ -60,7 +71,7 @@
                     <asp:ListItem Text="Interactive & Digital Media" Value="IDM"></asp:ListItem>
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="userFOI"
-                    CssClass="text-danger" InitialValue="SELECT" ErrorMessage="The Field of Industry field is required" />
+                    CssClass="text-danger" Display="Dynamic" InitialValue="SELECT" ErrorMessage="The Field of Industry field is required" />
             </div>
         </div>
        <%-- <div class="form-group">
@@ -80,7 +91,7 @@
                          <asp:ListItem Text="I want an image as my Password" Value="2"></asp:ListItem>
                 </asp:RadioButtonList>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="PasswordSelection"
-                    CssClass="text-danger" ErrorMessage="This is required to choose a selection"/>
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="This is required to choose a selection"/>
             </div>
         </div>
 
@@ -90,7 +101,7 @@
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
-                    CssClass="text-danger" ErrorMessage="The password field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The password field is required." />
             </div>
         </div>
         <div class="form-group">

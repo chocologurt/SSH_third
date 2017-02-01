@@ -15,7 +15,10 @@
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="PhoneNumber" CssClass="form-control" TextMode="Phone" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="PhoneNumber"
-                    CssClass="text-danger" ErrorMessage="The PhoneNumber field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The PhoneNumber field is required." />
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="PhoneNumber"
+                    ValidationExpression="([\d]{8})"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Invalid Phone number" />
             </div>
         </div>
         <div class="form-group">

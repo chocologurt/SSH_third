@@ -79,7 +79,7 @@ namespace SSH3.Account
                         manager.UpdateSecurityStamp(user.Id);
                         // This doen't count login failures towards account lockout
                         // To enable password failures to trigger lockout, change to shouldLockout: true
-                        var result = signinManager.PasswordSignIn(userName.Text, password, RememberMe.Checked, shouldLockout: true);
+                        var result = signinManager.PasswordSignIn(userName.Text, password, false, shouldLockout: true);
 
                         switch (result)
                         {
@@ -89,12 +89,12 @@ namespace SSH3.Account
                             case SignInStatus.LockedOut:
                                 Response.Redirect("/Account/Lockout");
                                 break;
-                            case SignInStatus.RequiresVerification:
-                                Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
-                                                                Request.QueryString["ReturnUrl"],
-                                                                RememberMe.Checked),
-                                                  true);
-                                break;
+                            //case SignInStatus.RequiresVerification:
+                            //    Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
+                            //                                    Request.QueryString["ReturnUrl"],
+                            //                                    RememberMe.Checked),
+                            //                      true);
+                            //    break;
                             case SignInStatus.Failure:
                             default:
                                 FailureText.Text = "Invalid login attempt";

@@ -11,45 +11,54 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="MentorEmail" CssClass="col-md-2 control-label">Email</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="MentorEmail" CssClass="form-control" TextMode="Email" />
+                <asp:TextBox runat="server" ID="MentorEmail" CssClass="form-control" TextMode="Email" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MentorEmail"
-                    CssClass="text-danger" ErrorMessage="The email field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The email field is required." />
             </div>
         </div>
 
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="mentorUsername" CssClass="col-md-2 control-label">Username</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="mentorUsername" CssClass="form-control" TextMode="SingleLine" />
+                <asp:TextBox runat="server" ID="mentorUsername" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="mentorUsername"
-                    CssClass="text-danger" ErrorMessage="The Username field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Username field is required." />
             </div>
         </div>
 
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="mentorFullName" CssClass="col-md-2 control-label">Full Name</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="mentorFullName" CssClass="form-control" TextMode="SingleLine" />
+                <asp:TextBox runat="server" ID="mentorFullName" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
                    <asp:RequiredFieldValidator runat="server" ControlToValidate="mentorFullName"
-                    CssClass="text-danger" ErrorMessage="The Full Name field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Full Name field is required." />
+                 <asp:RegularExpressionValidator runat="server" ControlToValidate="mentorFullName"
+                  ValidationExpression="([A-Za-z])+( [A-Za-z]+)*"
+                  CssClass="text-danger" Display="Dynamic" ErrorMessage="No Numbers & Symbols are allowed in the Name field." />
             </div>
         </div>
 
          <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="MentorInstitution" CssClass="col-md-2 control-label">Your Institution</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="MentorInstitution" CssClass="form-control" TextMode="SingleLine" />
+                <asp:TextBox runat="server" ID="MentorInstitution" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MentorInstitution"
-                    CssClass="text-danger" ErrorMessage="The Instution field is required" />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Instution field is required" />
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="MentorInstitution"
+                    ValidationExpression="[A-za-z ]{0,25}"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Institution is too long." />
             </div>
         </div>
 
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="MentorPhoneNumber" CssClass="col-md-2 control-label">Your Phone Number</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="MentorPhoneNumber" CssClass="form-control" TextMode="Phone" />
+                <asp:TextBox runat="server" ID="MentorPhoneNumber" CssClass="form-control" TextMode="Phone" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MentorPhoneNumber"
-                    CssClass="text-danger" ErrorMessage="The Phone Number field is required" />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Phone Number field is required" />
+                 <asp:RegularExpressionValidator runat="server" ControlToValidate="MentorPhoneNumber"
+                    ValidationExpression="([\d]{8})"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Invalid Phone number" />
             </div>
         </div>
 
@@ -63,16 +72,19 @@
                     <asp:ListItem Text="Interactive & Digital Media" Value="IDM"></asp:ListItem>
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MentorFOI"
-                    CssClass="text-danger" InitialValue="SELECT" ErrorMessage="The Field of Industry field is required" />
+                    CssClass="text-danger" Display="Dynamic" InitialValue="SELECT" ErrorMessage="The Field of Industry field is required" />
             </div>
         </div>
 
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="MentorDesignation" CssClass="col-md-2 control-label">Your Designation</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="MentorDesignation" CssClass="form-control" TextMode="SingleLine" />
+                <asp:TextBox runat="server" ID="MentorDesignation" CssClass="form-control" TextMode="SingleLine" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MentorDesignation"
-                    CssClass="text-danger" ErrorMessage="The Designation field is required" />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Designation field is required" />
+                 <asp:RegularExpressionValidator runat="server" ControlToValidate="MentorDesignation"
+                    ValidationExpression="[A-za-z ]{0,25}"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Designation is too long." />
             </div> 
         </div>
 
@@ -84,7 +96,7 @@
                          <asp:ListItem Text="I want an image as my Password" Value="2"></asp:ListItem>
                 </asp:RadioButtonList>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="PasswordSelection"
-                    CssClass="text-danger" ErrorMessage="This is required to choose a selection"/>
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="This is required to choose a selection"/>
             </div>
         </div>
 
@@ -94,7 +106,7 @@
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="MentorPassword" TextMode="Password" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MentorPassword"
-                    CssClass="text-danger" ErrorMessage="The password field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The password field is required." />
             </div>
         </div>
         <div class="form-group">

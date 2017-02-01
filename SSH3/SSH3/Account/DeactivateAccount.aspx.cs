@@ -30,13 +30,14 @@ namespace SSH3.Account
         {
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(Context.User.Identity.GetUserId());
+            Request.GetOwinContext().Authentication.SignOut();
             manager.Delete(currentUser);
             
 
             string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
             SqlCommand cmd =
-                new SqlCommand("INSERT INTO userDeactivate (Username, reasonCode, reasonText )VALUES (@userId, @code, @reason) ", con);
+                new SqlCommand("INSERT INTO userDeactivate (Username, Code, Reason )VALUES (@userId, @code, @reason) ", con);
             cmd.Parameters.AddWithValue("@userId", currentUser.UserName);
             cmd.Parameters.AddWithValue("@code", reasonDropDownList.SelectedValue);
             cmd.Parameters.AddWithValue("@reason", reasonDropDownList.SelectedItem.Text);

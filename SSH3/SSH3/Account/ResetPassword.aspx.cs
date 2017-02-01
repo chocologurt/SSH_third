@@ -46,7 +46,7 @@ namespace SSH3.Account
 
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-                var user = manager.FindByName(Email.Text);
+                var user = manager.FindByEmail(Email.Text);
                 if (user == null)
                 {
                     ErrorMessage.Text = "No user found";
@@ -75,6 +75,12 @@ namespace SSH3.Account
                     cmd.ExecuteNonQuery();
                     cmd2.ExecuteNonQuery();
                     con.Close();
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    //string code2 = manager.GenerateEmailConfirmationToken(user.Id);
+                    //string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
+                    manager.SendEmail(user.Id, "Password has been reset", "Your Password has been reset.");
+
 
                     Response.Redirect("~/Account/ResetPasswordConfirmation");
                     return;

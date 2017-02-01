@@ -13,7 +13,7 @@ namespace SSH3.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Request.GetOwinContext().Authentication.SignOut();
+            //Request.GetOwinContext().Authentication.SignOut();
         }
     }
 }

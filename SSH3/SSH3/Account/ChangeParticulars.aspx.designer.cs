@@ -10,87 +10,87 @@
 namespace SSH3.Account {
     
     
-    public partial class Manage {
+    public partial class ChangeParticulars {
         
         /// <summary>
-        /// successMessage control.
+        /// ErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder successMessage;
+        protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
-        /// ChangePassword control.
+        /// mentorParticulars control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangePassword;
+        protected global::System.Web.UI.WebControls.PlaceHolder mentorParticulars;
         
         /// <summary>
-        /// CreatePassword control.
+        /// mentorFullName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CreatePassword;
+        protected global::System.Web.UI.WebControls.TextBox mentorFullName;
         
         /// <summary>
-        /// PhoneNumber control.
+        /// mentorInstitution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PhoneNumber;
+        protected global::System.Web.UI.WebControls.TextBox mentorInstitution;
         
         /// <summary>
-        /// ChangeParticulars control.
+        /// mentorDesignation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangeParticulars;
+        protected global::System.Web.UI.WebControls.TextBox mentorDesignation;
         
         /// <summary>
-        /// AddorChangeProfilePic control.
+        /// menteeParticulars control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink AddorChangeProfilePic;
+        protected global::System.Web.UI.WebControls.PlaceHolder menteeParticulars;
         
         /// <summary>
-        /// AddSkills control.
+        /// menteeFullName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink AddSkills;
+        protected global::System.Web.UI.WebControls.TextBox menteeFullName;
         
         /// <summary>
-        /// DeleteSkills control.
+        /// menteeInstitution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink DeleteSkills;
+        protected global::System.Web.UI.WebControls.TextBox menteeInstitution;
         
         /// <summary>
-        /// DeactivateAccount control.
+        /// changeParticularsBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink DeactivateAccount;
+        protected global::System.Web.UI.WebControls.Button changeParticularsBtn;
     }
 }

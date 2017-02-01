@@ -93,6 +93,7 @@ namespace SSH3.Account
                             : message == "ChangePicSuccess" ? "Profile Picture was successfully changed"
                             : message == "AddSkillSuccess" ? "Your new Skill was added."
                             : message == "DeleteSkillSuccess" ? "Skill was deleted."
+                            : message == "ChangeParticularsSuccess" ? "Your Particulars was changed successfully"
                             : String.Empty;
                         successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
                     }

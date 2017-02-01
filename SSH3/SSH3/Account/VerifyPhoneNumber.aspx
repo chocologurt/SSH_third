@@ -13,9 +13,10 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Code" CssClass="col-md-2 control-label">Code</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Code" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="Code" CssClass="form-control" autocomplete="off"/>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Code"
-                    CssClass="text-danger" ErrorMessage="The Code field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The Code field is required." />
+
             </div>
         </div>
         <div class="form-group">

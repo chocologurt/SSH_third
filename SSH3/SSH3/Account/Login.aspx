@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="userName" CssClass="col-md-2 control-label">Usename:</asp:Label>
                         <div class="col-md-10">
-                            <asp:TextBox runat="server" ID="userName" CssClass="form-control" TextMode="SingleLine" />
+                            <asp:TextBox runat="server" ID="userName" CssClass="form-control" TextMode="SingleLine" autocomplete="off"/>
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="userName"
                                 CssClass="text-danger" ErrorMessage="The email field is required." />
                         </div>
@@ -77,14 +77,14 @@
                  <div class="form-group">
 <cc1:GoogleReCaptcha ID="ctrlGoogleReCaptcha" runat="server" PublicKey="6LchHRMUAAAAAAliGHiZos6bwaC0CxjwFKgL30BX" PrivateKey="6LchHRMUAAAAAD04mbR-MYLGginbbojlsEcoN1TT" />
                     </div>
-                <div class="form-group">
+                <%--<div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             <asp:CheckBox runat="server" ID="RememberMe" />
                             <asp:Label runat="server" AssociatedControlID="RememberMe">Remember me?</asp:Label>
                         </div>
                     </div>
-                </div>
+                </div>--%>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <asp:Button runat="server" OnClick="LogIn" Text="Log in" CssClass="btn btn-default" />
