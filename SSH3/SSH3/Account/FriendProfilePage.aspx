@@ -1,18 +1,47 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FriendProfilePage.aspx.cs" Inherits="SSH3.Account.FriendProfilePage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="profilemain" runat="server">
+    <style type="text/css">
+        .tab {
+            display: inline;
+            padding: 4px 18px 4px 18px;
+            background-color: deeppink;
+            font-weight: bold;
+            color: black;
+            border : 1px solid black;
+        }
+
+            .tab:hover {
+                color: White;
+            }
+
+        .tabClicked {
+            display: inline;
+            padding: 4px 18px 4px 18px;
+            color: black;
+            background-color: lavenderblush;
+            border : 1px solid black;
+        }
+
+        .tabContents {
+            padding: 4px 18px 4px 18px;
+            color: black;
+            background-color: lavenderblush;
+            border: 1px solid black;
+        }
+    </style>
+     <div id="profilemain" runat="server">
         <div id="profilepageHeader">
             <asp:Image runat="server" ID="userPicture" ImageUrl="~/Imagesss/introductions_800_clr_10909-1.png" Height="100px" Width="100px" />
             <asp:Label runat="server" ID="userFullNameLabel" Text="Full Name:" Font-Size="Large"></asp:Label>
             <asp:Label runat="server" ID="userFullNameText" Text="-insert something here-" Font-Size="Large" />
         </div>
         <div id="row">
-            <asp:Button runat="server" ID="personalInfoButton"  Text="Personal Information" OnClick="personalInfoButton_Click" BackColor="LimeGreen"/>
-            <asp:Button runat="server" ID="SkillsOwnedButton"  Text="Skilled Owned" OnClick="SkillsOwnedButton_Click" BackColor="LimeGreen" />
-            <asp:Button runat="server" ID="HobbiesButton"  Text="My Hobbies" OnClick="HobbiesButton_Click"  BackColor="LimeGreen" />
+            <asp:Button runat="server" ID="personalInfoButton"  Text="Personal Information" OnClick="personalInfoButton_Click" CssClass="tab"/>
+            <asp:Button runat="server" ID="SkillsOwnedButton"  Text="Skilled Owned" OnClick="SkillsOwnedButton_Click" CssClass="tab" />
+            <asp:Button runat="server" ID="HobbiesButton"  Text="My Hobbies" OnClick="HobbiesButton_Click" CssClass="tab" />
         </div>
 
-        <div id="content" runat="server">
+        <div id="content" runat="server" class="tabContents">
             <asp:MultiView runat="server" ID="MultiView1">
                 <asp:View ID="personalInfoView" runat="server">
                     <div id="personalInfoContent">

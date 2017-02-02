@@ -23,9 +23,9 @@ namespace SSH3.Account
                 if (!Page.IsPostBack)
                 {
                     MultiView1.ActiveViewIndex = 0;
-                    personalInfoButton.BackColor = System.Drawing.Color.Lime;
-                    SkillsOwnedButton.BackColor = System.Drawing.Color.LimeGreen;
-                    HobbiesButton.BackColor = System.Drawing.Color.LimeGreen;
+                    personalInfoButton.CssClass = "tabClicked";
+                    SkillsOwnedButton.CssClass = "tab";
+                    HobbiesButton.CssClass = "tab";
 
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                     var user = manager.FindByName(Context.User.Identity.GetUserName());
@@ -87,26 +87,26 @@ namespace SSH3.Account
         protected void personalInfoButton_Click(object sender, EventArgs e)
         {
             MultiView1.ActiveViewIndex = 0;
-            personalInfoButton.BackColor = System.Drawing.Color.Lime;
-            SkillsOwnedButton.BackColor = System.Drawing.Color.LimeGreen;
-            HobbiesButton.BackColor = System.Drawing.Color.LimeGreen;
+            personalInfoButton.CssClass = "tabClicked";
+            SkillsOwnedButton.CssClass = "tab";
+            HobbiesButton.CssClass = "tab";
 
         }
 
         protected void SkillsOwnedButton_Click(object sender, EventArgs e)
         {
             MultiView1.ActiveViewIndex = 1;
-            personalInfoButton.BackColor = System.Drawing.Color.LimeGreen;
-            SkillsOwnedButton.BackColor = System.Drawing.Color.Lime;
-            HobbiesButton.BackColor = System.Drawing.Color.LimeGreen;
+            personalInfoButton.CssClass = "tab";
+            SkillsOwnedButton.CssClass = "tabClicked";
+            HobbiesButton.CssClass = "tab";
         }
 
         protected void HobbiesButton_Click(object sender, EventArgs e)
         {
             MultiView1.ActiveViewIndex = 2;
-            personalInfoButton.BackColor = System.Drawing.Color.LimeGreen;
-            SkillsOwnedButton.BackColor = System.Drawing.Color.LimeGreen;
-            HobbiesButton.BackColor = System.Drawing.Color.Lime;
+            personalInfoButton.CssClass = "tab";
+            SkillsOwnedButton.CssClass = "tabClicked";
+            HobbiesButton.CssClass = "tab";
         }
     }
 }
