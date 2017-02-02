@@ -11,6 +11,7 @@ namespace SSH3.Account
 {
     public partial class ResetPassword : Page
     {
+        protected string dbConn = "DefaultConnection";
         protected string StatusMessage
         {
             get;
@@ -59,7 +60,7 @@ namespace SSH3.Account
                     var myPasswordHasher = new PasswordHasher();
                     string hashedpassword = myPasswordHasher.HashPassword(password);
 
-                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
 
                     SqlCommand cmd =

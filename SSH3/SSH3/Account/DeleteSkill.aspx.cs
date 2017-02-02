@@ -15,6 +15,7 @@ namespace SSH3.Account
 {
     public partial class ChangeSkill : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Context.User.Identity.IsAuthenticated)
@@ -24,7 +25,7 @@ namespace SSH3.Account
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                     var user = manager.FindByName(Context.User.Identity.GetUserName());
 
-                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     SqlCommand cmd = new SqlCommand("select * from userSkillSet where Username = @userId", con);
                     cmd.Parameters.AddWithValue("@userId", user.UserName);
@@ -60,7 +61,7 @@ namespace SSH3.Account
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                 var user = manager.FindByName(Context.User.Identity.GetUserName());
 
-                string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                 SqlConnection con3 = new SqlConnection(cs3);
                 SqlCommand cmd3 =
                     new SqlCommand("DELETE FROM userSkillSet WHERE userName = @username AND NameOfSkill = @skill ", con3);

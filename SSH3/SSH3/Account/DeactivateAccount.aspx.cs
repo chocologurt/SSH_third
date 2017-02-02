@@ -13,6 +13,7 @@ namespace SSH3.Account
 {
     public partial class DeactivateAccount : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -34,7 +35,7 @@ namespace SSH3.Account
             manager.Delete(currentUser);
             
 
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
             SqlCommand cmd =
                 new SqlCommand("INSERT INTO userDeactivate (Username, Code, Reason )VALUES (@userId, @code, @reason) ", con);

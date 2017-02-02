@@ -14,6 +14,7 @@ namespace SSH3.Account
 {
     public partial class AddHobby : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         string selected_value = "";
         string selected_category = "";
         protected void Page_Load(object sender, EventArgs e)
@@ -22,7 +23,7 @@ namespace SSH3.Account
             {
                 if (!Page.IsPostBack)
                 {
-                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     string str = "SELECT DISTINCT TypeOfHobby, AcroymnOfType FROM Hobbies";
                     SqlDataAdapter adpt = new SqlDataAdapter(str, con);
@@ -54,7 +55,7 @@ namespace SSH3.Account
 
             List<String> hobbyList = new List<string>();
 
-            string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
             SqlConnection con2 = new SqlConnection(cs2);
             SqlCommand cmd2 =
                 new SqlCommand("SELECT NameOfHobby FROM userHobbies WHERE Username = @userName AND AcroymnOfType = @AOT", con2);
@@ -75,7 +76,7 @@ namespace SSH3.Account
 
             if (!hobbyList.Contains(HobbyDropDownList.SelectedItem.Text))
             {
-                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 SqlCommand cmd =
                     new SqlCommand("INSERT INTO userHobbies (Username, NameOfHobby, HobbySerialCode, TypeOfHobby, AcroymnOfType) VALUES(@userId, @hobby,@code, @TOH, @AOT )", con);
@@ -101,8 +102,8 @@ namespace SSH3.Account
         {
             selected_value = CategoryDropDownList.SelectedValue;
             selected_category = CategoryDropDownList.SelectedItem.Text;
-
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
             string str = "SELECT NameOfHobby, HobbySerialCode FROM Hobbies WHERE AcroymnOfType = @AOT";
 

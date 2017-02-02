@@ -15,6 +15,7 @@ namespace SSH3.Account
 {
     public partial class ManagePassword : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         protected string SuccessMessage
         {
             get;
@@ -125,7 +126,7 @@ namespace SSH3.Account
                 List<String> pwdList = new List<string>(5);
                 List<PasswordVerificationResult> resultsList = new List<PasswordVerificationResult>(5);
 
-                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 SqlCommand cmd =
                     new SqlCommand("SELECT password FROM pwList WHERE userName = @userName", con);
@@ -167,7 +168,7 @@ namespace SSH3.Account
                         {
                             string hashedpassword = myPasswordHasher.HashPassword(newPassword);
 
-                            string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                            string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                             SqlConnection con2 = new SqlConnection(cs2);
                             SqlCommand cmd2 =
                                 new SqlCommand("INSERT INTO pwList (userName, password) VALUES(@username, @password)", con2);
@@ -186,7 +187,7 @@ namespace SSH3.Account
 
                             string hashedpassword = myPasswordHasher.HashPassword(newPassword);
 
-                            string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                            string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                             SqlConnection con4 = new SqlConnection(cs4);
                             SqlCommand cmd4 =
                                 new SqlCommand("INSERT INTO pwList (userName, password) VALUES(@username, @password)", con4);
@@ -196,7 +197,7 @@ namespace SSH3.Account
                             cmd4.ExecuteNonQuery();
                             con4.Close();
 
-                            string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                            string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                             SqlConnection con3 = new SqlConnection(cs3);
                             SqlCommand cmd3 =
                                 new SqlCommand("DELETE TOP(1) FROM pwList WHERE userName = @username ", con3);

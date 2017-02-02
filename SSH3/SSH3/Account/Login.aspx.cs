@@ -89,68 +89,14 @@ namespace SSH3.Account
                             case SignInStatus.LockedOut:
                                 Response.Redirect("/Account/Lockout");
                                 break;
-                            //case SignInStatus.RequiresVerification:
-                            //    Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
-                            //                                    Request.QueryString["ReturnUrl"],
-                            //                                    RememberMe.Checked),
-                            //                      true);
-                            //    break;
+                            
                             case SignInStatus.Failure:
                             default:
                                 FailureText.Text = "Invalid login attempt";
                                 ErrorMessage.Visible = true;
                                 break;
                         }
-                        //    if (textPassword.Visible == true)
-                        //{
-
-
-                        //    var userStore = new UserStore<IdentityUser>();
-                        //    var userManager = new UserManager<IdentityUser>(userStore);
-                        //    var user = userManager.Find(userName.Text, Password.Text);
-                        //    if (user != null)
-                        //    {
-                        //        var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-                        //        var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-
-                        //        authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
-                        //        Response.Redirect("~/Default.aspx");
-                        //    }
-                        //    else
-                        //    {
-                        //        FailureText.Text = "Invalid Login Attempt";
-                        //        ErrorMessage.Visible = true;
-                        //    }
-                        //}
-                        //else if (imagePassword.Visible == true)
-                        //{
-                        //    string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
-                        //    if (fileExt == ".jpg")
-                        //    {
-                        //        // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                        //        byte[] imgbyte = imagePasswordControl.FileBytes;
-                        //        //convert byte[] to Base64 string
-                        //        string base64ImgString = Convert.ToBase64String(imgbyte);
-
-                        //        var userStore = new UserStore<IdentityUser>();
-                        //        var userManager = new UserManager<IdentityUser>(userStore);
-                        //        var user = userManager.Find(userName.Text, base64ImgString);
-                        //        if (user != null)
-                        //        {
-                        //            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-                        //            var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-
-                        //            authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
-                        //            Response.Redirect("~/Default.aspx");
-                        //        }
-                        //        else
-                        //        {
-                        //            FailureText.Text = "Invalid Login Attempt";
-                        //            ErrorMessage.Visible = true;
-                        //        }
-                        //    }
-
-                        //}
+                      
                     }
                 }
             }

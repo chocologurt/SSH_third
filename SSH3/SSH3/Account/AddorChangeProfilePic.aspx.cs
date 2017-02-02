@@ -13,7 +13,7 @@ namespace SSH3.Account
     {
         private string filename = "";
         private string imgPath = "";
-
+        protected string dbConn = "DefaultConnection";
         protected string SuccessMessage
         {
             get;
@@ -30,7 +30,7 @@ namespace SSH3.Account
                 var currentUser = manager.FindById(Context.User.Identity.GetUserId());
                 var username = currentUser.UserName;
 
-                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 SqlCommand cmd =
                     new SqlCommand("SELECT userPic FROM users WHERE userID = @userName", con);
@@ -96,7 +96,7 @@ namespace SSH3.Account
 
                     string data = "";
 
-                    string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con2 = new SqlConnection(cs2);
                     SqlCommand cmd2 =
                         new SqlCommand("SELECT userPic FROM users WHERE userID = @userName", con2);
@@ -115,29 +115,9 @@ namespace SSH3.Account
 
                     if (!String.IsNullOrEmpty(data))
                     {
-                        //string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                        //SqlConnection con = new SqlConnection(cs);
-                        //SqlCommand cmd =
-                        //    new SqlCommand("INSERT INTO userProfilePics (Username, imageName) VALUES(@userId, @image)", con);
-                        //cmd.Parameters.AddWithValue("@userId", username);
-                        //cmd.Parameters.AddWithValue("@image", filename);
-                        //con.Open();
-                        //cmd.ExecuteNonQuery();
-                        //con.Close();
-                        //string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                        //SqlConnection con3 = new SqlConnection(cs3);
-                        //SqlCommand cmd3 =
-                        //    new SqlCommand("DELETE TOP(1) FROM userProfilePics WHERE Username = @username ", con3);
-                        //cmd3.Parameters.AddWithValue("@username", username);
-                        //con3.Open();
-                        //cmd3.ExecuteNonQuery();
-                        //con3.Close();
+                       
 
-                        //imgPath = username + "_" + data;
-                        //string completepath = Server.MapPath(@"~\UserProfilePics\") + imgPath;
-                        //File.Delete(completepath);
-
-                        string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                        string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                         SqlConnection con = new SqlConnection(cs);
                         SqlCommand cmd =
                             new SqlCommand("UPDATE users SET userPic = @image WHERE userID = @userId", con);
@@ -153,7 +133,7 @@ namespace SSH3.Account
                     }
                     else if (String.IsNullOrEmpty(data))
                     {
-                        string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                        string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                         SqlConnection con4 = new SqlConnection(cs4);
                         SqlCommand cmd4 =
                             new SqlCommand("UPDATE users SET userPic = @image WHERE userID = @userId", con4);

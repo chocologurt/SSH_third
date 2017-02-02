@@ -16,9 +16,13 @@ namespace SSH3.Account
 {
     public partial class MentorRegistration : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
         }
 
         protected void CreateUser_Click(object sender, EventArgs e)
@@ -66,7 +70,7 @@ namespace SSH3.Account
                 if (result.Succeeded)
                 {
 
-                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     SqlCommand cmd =
                         new SqlCommand("INSERT INTO users (userID, userInstitution, userMode, userDesignation, userFieldOfIndustry, FullName) VALUES(@userId, @institution,@registrationMode, @designation, @userFOI, @fullname )", con);
@@ -83,7 +87,7 @@ namespace SSH3.Account
                     var myPasswordHasher = new PasswordHasher();
                     string hashedpassword = myPasswordHasher.HashPassword(password);
 
-                    string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con2 = new SqlConnection(cs2);
                     SqlCommand cmd2 =
                         new SqlCommand("INSERT INTO pwList (userName, password) VALUES(@username, @password)", con2);

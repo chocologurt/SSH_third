@@ -14,6 +14,7 @@ namespace SSH3.Account
 {
     public partial class AddSkill : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         string selected_value = "";
         string selected_category = "";
         protected void Page_Load(object sender, EventArgs e)
@@ -22,7 +23,7 @@ namespace SSH3.Account
             {
                 if (!Page.IsPostBack)
                 {
-                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     string str = "SELECT DISTINCT FieldOfSkill, AcroymnOfField FROM SkillsSet";
                     SqlDataAdapter adpt = new SqlDataAdapter(str, con);
@@ -52,7 +53,7 @@ namespace SSH3.Account
 
             List<String> skillList = new List<string>();
 
-            string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
             SqlConnection con2 = new SqlConnection(cs2);
             SqlCommand cmd2 =
                 new SqlCommand("SELECT NameOfSkill FROM userSkillSet WHERE userName = @userName AND AcroymnOfField = @AOF", con2);
@@ -73,7 +74,7 @@ namespace SSH3.Account
 
             if (!skillList.Contains(SkillDropDownList.SelectedItem.Text))
             {
-                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 SqlCommand cmd =
                     new SqlCommand("INSERT INTO userSkillSet (Username, NameOfSkill, SkillSerialCode, FieldOfSkill, AcroymnOfField) VALUES(@userId, @Skill,@code, @FOS, @AOF )", con);
@@ -101,7 +102,7 @@ namespace SSH3.Account
             selected_value = CategoryDropDownList.SelectedValue;
             selected_category = CategoryDropDownList.SelectedItem.Text;
 
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
             string str = "SELECT NameOfSkill, SkillSerialCode FROM SkillsSet WHERE AcroymnOfField = @AOF";
 

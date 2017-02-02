@@ -13,6 +13,7 @@ namespace SSH3.Account
 {
     public partial class ChangeParticulars : System.Web.UI.Page
     {
+        protected string dbConn = "DefaultConnection";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Context.User.Identity.IsAuthenticated)
@@ -24,7 +25,7 @@ namespace SSH3.Account
 
                     string usermode="";
 
-                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     SqlCommand cmd = new SqlCommand("select userMode from users where userID = @userId", con);
                     cmd.Parameters.AddWithValue("@userId", user.UserName);
@@ -40,7 +41,7 @@ namespace SSH3.Account
                     {
                         menteeParticulars.Visible = true;
 
-                        string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                        string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                         SqlConnection con2 = new SqlConnection(cs2);
                         SqlCommand cmd2 = new SqlCommand("select userInstitution, FullName from users where userID = @userId", con2);
                         cmd2.Parameters.AddWithValue("@userId", user.UserName);
@@ -57,7 +58,7 @@ namespace SSH3.Account
                     {
                         mentorParticulars.Visible = true;
 
-                        string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                        string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                         SqlConnection con3 = new SqlConnection(cs3);
                         SqlCommand cmd3 = new SqlCommand("select userInstitution, userDesignation, FullName from users where userID = @userId", con3);
                         cmd3.Parameters.AddWithValue("@userId", user.UserName);
@@ -87,7 +88,7 @@ namespace SSH3.Account
             {
                
                 
-                    string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con4 = new SqlConnection(cs4);
                     SqlCommand cmd4 = new SqlCommand("UPDATE users SET userInstitution = @institution, userDesignation = @designation, FullName = @fullname WHERE userID = @userId", con4);
                     cmd4.Parameters.AddWithValue("@institution", mentorInstitution.Text);
@@ -104,7 +105,7 @@ namespace SSH3.Account
             else if (menteeParticulars.Visible == true)
             {
                
-                    string cs5 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    string cs5 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con5 = new SqlConnection(cs5);
                     SqlCommand cmd5 = new SqlCommand("UPDATE users SET userInstitution = @institution, FullName = @fullname WHERE userID = @userId", con5);
                     cmd5.Parameters.AddWithValue("@institution", menteeInstitution.Text);
