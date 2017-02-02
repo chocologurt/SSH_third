@@ -1,11 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddSkill.aspx.cs" Inherits="SSH3.Account.AddSkill" %>
+﻿<%@ Page Title="Add Hobby" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddHobby.aspx.cs" Inherits="SSH3.Account.AddHobby" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <script type="text/javascript">
-       function confirmNewSkillModal() {
-           $('#addSkillPortion').modal('show');
-       }
-   </script>
-    
+    <script type="text/javascript">
+        function confirmAddNewHobby() {
+            $('#addHobbyPortion').modal('show');
+        }
+    </script>
      <h2><%: Title %></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
@@ -23,21 +22,22 @@
                     <br />
                     </div>
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="SkillDropDownList" CssClass="col-md-2 control-label">Selection of Skill:</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="HobbyDropDownList" CssClass="col-md-2 control-label">Selection of Skill:</asp:Label>
                     <div class="col-md-10">
-                        <asp:DropDownList ID="SkillDropDownList" runat="server" />
-                        <asp:Button ID="AddSkillButton" runat="server" OnClick="AddSkill_Click" Text="Confirm Skill Selection" />
+                        <asp:DropDownList ID="HobbyDropDownList" runat="server" />
+                        <asp:Button ID="AddHobbyButton" OnClick="AddHobby_Click" runat="server"  Text="Confirm Skill Selection" />
                     </div>
                 </div>
             </div>
         </section>
     </div>
-    <div class="modal fade" id="addSkillPortion">
+
+    <div class="modal fade" id="addHobbyPortion">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ></button>
-                    <h4 class="modal-title">Comfirm Addition of this Skill</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Confirmation of Adding this Hobby</h4>
                 </div>
 
                 <div class="modal-body">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button runat="server" CssClass="btn btn-default" Text="Confirm" ID="ConfirmSkill" OnClick="ConfirmSkill_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default" Text="Confirm" ID="ConfirmHobby" OnClick="ConfirmHobby_Click" />
                     <asp:Button runat="server" CssClass="btn btn-info" data-dismiss="modal" Text="Cancel" />
                 </div>
             </div>

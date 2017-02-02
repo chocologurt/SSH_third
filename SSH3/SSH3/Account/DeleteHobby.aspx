@@ -1,20 +1,19 @@
-﻿<%@ Page Title="ChangeSkill" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DeleteSkill.aspx.cs" EnableEventValidation = "false" Inherits="SSH3.Account.ChangeSkill" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DeleteHobby.aspx.cs" EnableEventValidation = "false" Inherits="SSH3.Account.DeleteHobby" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript">
+     <script type="text/javascript">
         function confirmDeleteModal() {
-            $('#deleteSelectedSkill').modal('show');
+            $('#deleteSelectedHobby').modal('show');
         }
     </script>
     <div class="form-horizontal"> 
             <div class="form-horizontal">
                 <hr />
-                <h2>Summary of the type of Skills you have.</h2>
+                <h2>Summary of the Hobbies you have.</h2>
                 <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage"  />
     </p>
                 <div class="form-horizontal">
-                    <section id="changeSkillForm">
+                    <section id="changeHobbyForm">
                         <div class="form-horizontal">
                             <hr />
                             <div class="form-group">
@@ -37,7 +36,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="modal fade" id="deleteSelectedSkill">
+                <div class="modal fade" id="deleteSelectedHobby">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

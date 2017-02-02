@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace SSH3.Account
 {
-    public partial class ChangeSkill : System.Web.UI.Page
+    public partial class DeleteHobby : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +26,7 @@ namespace SSH3.Account
 
                     string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
-                    SqlCommand cmd = new SqlCommand("select * from userSkillSet where Username = @userId", con);
+                    SqlCommand cmd = new SqlCommand("select * from userHobbies where Username = @userId", con);
                     cmd.Parameters.AddWithValue("@userId", user.UserName);
                     SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -45,12 +45,12 @@ namespace SSH3.Account
 
         protected void DeleteSelected_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSelectedSkill", "confirmDeleteModal();", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSelectedHobby", "confirmDeleteModal();", true);
         }
 
         protected void Deletebtn_Click(object sender, EventArgs e)
         {
-           
+
             if (GridView1.SelectedIndex != -1)
             {
                 string skill_name = GridView1.SelectedRow.Cells[1].Text;
@@ -63,19 +63,19 @@ namespace SSH3.Account
                 string cs3 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 SqlConnection con3 = new SqlConnection(cs3);
                 SqlCommand cmd3 =
-                    new SqlCommand("DELETE FROM userSkillSet WHERE userName = @username AND NameOfSkill = @skill ", con3);
+                    new SqlCommand("DELETE FROM userHobbies WHERE Username = @username AND NameOfHobby = @hobby ", con3);
                 cmd3.Parameters.AddWithValue("@username", user.UserName);
-                cmd3.Parameters.AddWithValue("@skill", skill_name);
+                cmd3.Parameters.AddWithValue("@hobby", skill_name);
                 con3.Open();
                 cmd3.ExecuteNonQuery();
                 con3.Close();
 
-                Response.Redirect("~/Account/Manage?m=DeleteSkillSuccess");
+                Response.Redirect("~/Account/Manage?m=DeleteHobbySuccess");
             }
             else
             {
                 ErrorMessage.Text = "Nothing was deleted. Please select a row to delete it.";
-               
+
             }
         }
 
@@ -85,7 +85,7 @@ namespace SSH3.Account
         //     int startRowIndex
         //     out int totalRowCount
         //     string sortByExpression
-       
+
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {

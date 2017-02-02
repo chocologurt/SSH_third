@@ -94,6 +94,8 @@ namespace SSH3.Account
                             : message == "AddSkillSuccess" ? "Your new Skill was added."
                             : message == "DeleteSkillSuccess" ? "Skill was deleted."
                             : message == "ChangeParticularsSuccess" ? "Your Particulars was changed successfully"
+                            : message == "AddHobbySuccess" ? "Your new Hobby was added"
+                            : message == "DeleteHobbySuccess" ? "Your Hobby was deleted"
                             : String.Empty;
                         successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
                     }

@@ -86,6 +86,11 @@
                         <asp:HyperLink NavigateUrl="/Account/AddSkill" Text="[Add]" ID="AddSkills" runat="server" />
                         <asp:HyperLink NavigateUrl="/Account/DeleteSkill" Text="[Delete]" ID="DeleteSkills" runat="server" />
                     </dd>
+                    <dt> Your Hobbies:</dt>
+                    <dd> 
+                        <asp:HyperLink NavigateUrl="~/Account/AddHobby" Text="[Add]" ID="AddHobby" runat="server" />
+                        <asp:HyperLink NavigateUrl="~/Account/DeleteHobby" Text="[Delete]" ID="DeleteHobby" runat="server" />
+                    </dd>
                     <dt>Deactivate Account:</dt>
                     <dd> 
                         <asp:HyperLink NavigateUrl="/Account/DeactivateAccount" Text="[Deactivate]" ID="DeactivateAccount" runat="server" />

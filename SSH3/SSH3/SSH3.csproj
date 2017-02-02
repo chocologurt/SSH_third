@@ -204,11 +204,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Account\AddHobby.aspx" />
     <Content Include="Account\AddorChangeProfilePic.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\AddSkill.aspx" />
     <Content Include="Account\ChangeParticulars.aspx" />
     <Content Include="Account\ConfirmDeactivation.aspx" />
+    <Content Include="Account\DeleteHobby.aspx" />
     <Content Include="Account\DeleteSkill.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\DeactivateAccount.aspx" />
@@ -295,6 +297,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AddHobby.aspx.cs">
+      <DependentUpon>AddHobby.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\AddHobby.aspx.designer.cs">
+      <DependentUpon>AddHobby.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\AddorChangeProfilePic.aspx.cs">
       <DependentUpon>AddorChangeProfilePic.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,6 +338,13 @@
     </Compile>
     <Compile Include="Account\ConfirmDeactivation.aspx.designer.cs">
       <DependentUpon>ConfirmDeactivation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\DeleteHobby.aspx.cs">
+      <DependentUpon>DeleteHobby.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\DeleteHobby.aspx.designer.cs">
+      <DependentUpon>DeleteHobby.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\DeleteSkill.aspx.cs">
       <DependentUpon>DeleteSkill.aspx</DependentUpon>

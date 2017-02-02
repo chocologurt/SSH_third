@@ -10,7 +10,7 @@
 namespace SSH3.Account {
     
     
-    public partial class AddSkill {
+    public partial class AddHobby {
         
         /// <summary>
         /// ErrorMessage control.
@@ -31,30 +31,30 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.DropDownList CategoryDropDownList;
         
         /// <summary>
-        /// SkillDropDownList control.
+        /// HobbyDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SkillDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList HobbyDropDownList;
         
         /// <summary>
-        /// AddSkillButton control.
+        /// AddHobbyButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddSkillButton;
+        protected global::System.Web.UI.WebControls.Button AddHobbyButton;
         
         /// <summary>
-        /// ConfirmSkill control.
+        /// ConfirmHobby control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ConfirmSkill;
+        protected global::System.Web.UI.WebControls.Button ConfirmHobby;
     }
 }

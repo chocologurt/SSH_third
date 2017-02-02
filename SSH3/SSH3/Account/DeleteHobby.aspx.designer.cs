@@ -10,7 +10,7 @@
 namespace SSH3.Account {
     
     
-    public partial class AddSkill {
+    public partial class DeleteHobby {
         
         /// <summary>
         /// ErrorMessage control.
@@ -22,39 +22,30 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
-        /// CategoryDropDownList control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CategoryDropDownList;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// SkillDropDownList control.
+        /// Deletebtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SkillDropDownList;
+        protected global::System.Web.UI.WebControls.Button Deletebtn;
         
         /// <summary>
-        /// AddSkillButton control.
+        /// deleteButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddSkillButton;
-        
-        /// <summary>
-        /// ConfirmSkill control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ConfirmSkill;
+        protected global::System.Web.UI.WebControls.Button deleteButton;
     }
 }

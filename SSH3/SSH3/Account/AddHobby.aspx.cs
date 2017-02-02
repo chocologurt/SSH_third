@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace SSH3.Account
 {
-    public partial class AddSkill : System.Web.UI.Page
+    public partial class AddHobby : System.Web.UI.Page
     {
         string selected_value = "";
         string selected_category = "";
@@ -24,14 +24,14 @@ namespace SSH3.Account
                 {
                     string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
-                    string str = "SELECT DISTINCT FieldOfSkill, AcroymnOfField FROM SkillsSet";
+                    string str = "SELECT DISTINCT TypeOfHobby, AcroymnOfType FROM Hobbies";
                     SqlDataAdapter adpt = new SqlDataAdapter(str, con);
                     DataTable dt = new DataTable();
                     adpt.Fill(dt);
                     CategoryDropDownList.DataSource = dt;
                     CategoryDropDownList.DataBind();
-                    CategoryDropDownList.DataTextField = "FieldOfSkill";
-                    CategoryDropDownList.DataValueField = "AcroymnOfField";
+                    CategoryDropDownList.DataTextField = "TypeOfHobby";
+                    CategoryDropDownList.DataValueField = "AcroymnOfType";
                     CategoryDropDownList.DataBind();
                     CategoryDropDownList.Items.Insert(0, new ListItem("--Select Category--", "0"));
                 }
@@ -42,22 +42,24 @@ namespace SSH3.Account
             }
         }
 
-
-
-        protected void ConfirmSkill_Click(object sender, EventArgs e)
+        protected void AddHobby_Click(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "addHobbyPortion", "confirmAddNewHobby()", true);
+        }
 
+        protected void ConfirmHobby_Click(object sender, EventArgs e)
+        {
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = manager.FindByName(Context.User.Identity.GetUserName());
 
-            List<String> skillList = new List<string>();
+            List<String> hobbyList = new List<string>();
 
             string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlConnection con2 = new SqlConnection(cs2);
             SqlCommand cmd2 =
-                new SqlCommand("SELECT NameOfSkill FROM userSkillSet WHERE userName = @userName AND AcroymnOfField = @AOF", con2);
+                new SqlCommand("SELECT NameOfHobby FROM userHobbies WHERE Username = @userName AND AcroymnOfType = @AOT", con2);
             cmd2.Parameters.AddWithValue("@userName", user.UserName);
-            cmd2.Parameters.AddWithValue("@AOF", CategoryDropDownList.SelectedValue);
+            cmd2.Parameters.AddWithValue("@AOT", CategoryDropDownList.SelectedValue);
             con2.Open();
 
             // PasswordVerificationResult results = myPasswordHasher.VerifyHashedPassword(hashedpassword2, NewPassword.Text);
@@ -65,36 +67,35 @@ namespace SSH3.Account
             {
                 while (reader.Read())
                 {
-                    skillList.Add(Convert.ToString(reader["NameOfSkill"]));
+                    hobbyList.Add(Convert.ToString(reader["NameOfHobby"]));
                 }
             }
 
             con2.Close();
 
-            if (!skillList.Contains(SkillDropDownList.SelectedItem.Text))
+            if (!hobbyList.Contains(HobbyDropDownList.SelectedItem.Text))
             {
                 string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 SqlConnection con = new SqlConnection(cs);
                 SqlCommand cmd =
-                    new SqlCommand("INSERT INTO userSkillSet (Username, NameOfSkill, SkillSerialCode, FieldOfSkill, AcroymnOfField) VALUES(@userId, @Skill,@code, @FOS, @AOF )", con);
+                    new SqlCommand("INSERT INTO userHobbies (Username, NameOfHobby, HobbySerialCode, TypeOfHobby, AcroymnOfType) VALUES(@userId, @hobby,@code, @TOH, @AOT )", con);
                 cmd.Parameters.AddWithValue("@userId", user.UserName);
-                cmd.Parameters.AddWithValue("@Skill", SkillDropDownList.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@Code", SkillDropDownList.SelectedValue);
-                cmd.Parameters.AddWithValue("@FOS", CategoryDropDownList.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@AOF", CategoryDropDownList.SelectedValue);
+                cmd.Parameters.AddWithValue("@hobby", HobbyDropDownList.SelectedItem.Text);
+                cmd.Parameters.AddWithValue("@Code", HobbyDropDownList.SelectedValue);
+                cmd.Parameters.AddWithValue("@TOH", CategoryDropDownList.SelectedItem.Text);
+                cmd.Parameters.AddWithValue("@AOT", CategoryDropDownList.SelectedValue);
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                Response.Redirect("~/Account/Manage?m=AddSkillSuccess");
+                Response.Redirect("~/Account/Manage?m=AddHobbySuccess");
 
             }
             else
             {
-                ErrorMessage.Text = "You already have this skill";
+                ErrorMessage.Text = "You already have this Hobby";
             }
         }
-
 
         protected void CategoryDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -103,22 +104,17 @@ namespace SSH3.Account
 
             string cs = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
-            string str = "SELECT NameOfSkill, SkillSerialCode FROM SkillsSet WHERE AcroymnOfField = @AOF";
+            string str = "SELECT NameOfHobby, HobbySerialCode FROM Hobbies WHERE AcroymnOfType = @AOT";
 
             SqlDataAdapter adpt = new SqlDataAdapter(str, con);
-            adpt.SelectCommand.Parameters.AddWithValue("@AOF", selected_value);
+            adpt.SelectCommand.Parameters.AddWithValue("@AOT", selected_value);
             DataTable dt = new DataTable();
             adpt.Fill(dt);
-            SkillDropDownList.DataSource = dt;
-            SkillDropDownList.DataBind();
-            SkillDropDownList.DataTextField = "NameOfSkill";
-            SkillDropDownList.DataValueField = "SkillSerialCode";
-            SkillDropDownList.DataBind();
-        }
-
-        protected void AddSkill_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "addSkillPortion", "confirmNewSkillModal()", true);
+            HobbyDropDownList.DataSource = dt;
+            HobbyDropDownList.DataBind();
+            HobbyDropDownList.DataTextField = "NameOfHobby";
+            HobbyDropDownList.DataValueField = "HobbySerialCode";
+            HobbyDropDownList.DataBind();
         }
     }
 }
