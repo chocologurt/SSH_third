@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <asp:Button runat="server" CssClass="btn btn-default" Text="Delete" ID="deleteButton" OnClick="Deletebtn_Click" />
+                                <asp:Button runat="server" BackColor="#00ffff" Text="Delete" ID="deleteButton" OnClick="Deletebtn_Click" />
                                 <asp:Button runat="server" CssClass="btn btn-info" data-dismiss="modal" Text="Cancel" />
                             </div>
                         </div>

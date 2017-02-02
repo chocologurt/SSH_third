@@ -10,7 +10,7 @@
 namespace SSH3.Account {
     
     
-    public partial class ProfilePage {
+    public partial class FriendProfilePage {
         
         /// <summary>
         /// profilemain control.

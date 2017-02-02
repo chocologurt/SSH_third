@@ -151,5 +151,10 @@ namespace SSH3.Account
 
             Response.Redirect("/Account/Manage");
         }
+
+        protected void FriendPage_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Account/FriendProfilePage?m=helloWanitaa");
+        }
     }
 }

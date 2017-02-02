@@ -216,6 +216,7 @@
     <Content Include="Account\DeactivateAccount.aspx" />
     <Content Include="Account\EmailBeingSent.aspx" />
     <Content Include="Account\Forgot.aspx" />
+    <Content Include="Account\FriendProfilePage.aspx" />
     <Content Include="Account\Lockout.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Manage.aspx" />
@@ -229,6 +230,7 @@
     <Content Include="Account\RegistrationSelection.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Account\SettingsOrProfile.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="Contact.aspx" />
@@ -245,6 +247,8 @@
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Imagesss\introductions_800_clr_10909-1.png" />
+    <Content Include="Imagesss\profile-icon-png-906.png" />
+    <Content Include="Imagesss\settings-5-xxl.png" />
     <Content Include="Imagesss\user_mentee_med.jpg" />
     <Content Include="References\GoogleReCaptcha.dll" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -381,6 +385,13 @@
     <Compile Include="Account\Forgot.aspx.designer.cs">
       <DependentUpon>Forgot.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\FriendProfilePage.aspx.cs">
+      <DependentUpon>FriendProfilePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\FriendProfilePage.aspx.designer.cs">
+      <DependentUpon>FriendProfilePage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\Lockout.aspx.cs">
       <DependentUpon>Lockout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -471,6 +482,13 @@
     </Compile>
     <Compile Include="Account\ResetPasswordConfirmation.aspx.designer.cs">
       <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\SettingsOrProfile.aspx.cs">
+      <DependentUpon>SettingsOrProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\SettingsOrProfile.aspx.designer.cs">
+      <DependentUpon>SettingsOrProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.cs">
       <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>

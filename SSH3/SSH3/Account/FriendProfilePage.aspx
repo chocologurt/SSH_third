@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProfilePage.aspx.cs" Inherits="SSH3.Account.ProfilePage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FriendProfilePage.aspx.cs" Inherits="SSH3.Account.FriendProfilePage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-     <div id="profilemain" runat="server">
+    <div id="profilemain" runat="server">
         <div id="profilepageHeader">
             <asp:Image runat="server" ID="userPicture" ImageUrl="~/Imagesss/introductions_800_clr_10909-1.png" Height="100px" Width="100px" />
             <asp:Label runat="server" ID="userFullNameLabel" Text="Full Name:" Font-Size="Large"></asp:Label>

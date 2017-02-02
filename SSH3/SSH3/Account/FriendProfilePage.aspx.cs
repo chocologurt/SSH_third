@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace SSH3.Account
 {
-    public partial class ProfilePage : System.Web.UI.Page
+    public partial class FriendProfilePage : System.Web.UI.Page
     {
         protected string dbConn = "DefaultConnection";
         protected void Page_Load(object sender, EventArgs e)
@@ -27,13 +27,12 @@ namespace SSH3.Account
                     SkillsOwnedButton.BackColor = System.Drawing.Color.LimeGreen;
                     HobbiesButton.BackColor = System.Drawing.Color.LimeGreen;
 
-                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                    var user = manager.FindByName(Context.User.Identity.GetUserName());
+                    var username = Request.QueryString["m"];
 
                     string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     SqlCommand cmd = new SqlCommand("select * from userSkillSet where Username = @userId", con);
-                    cmd.Parameters.AddWithValue("@userId", user.UserName);
+                    cmd.Parameters.AddWithValue("@userId", username);
                     SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     Adpt.Fill(dt);
@@ -43,7 +42,7 @@ namespace SSH3.Account
                     string filename = "";
 
                     SqlCommand cmd2 = new SqlCommand("select * from userHobbies where Username = @userId", con);
-                    cmd2.Parameters.AddWithValue("@userId", user.UserName);
+                    cmd2.Parameters.AddWithValue("@userId", username);
                     SqlDataAdapter Adpt2 = new SqlDataAdapter(cmd2);
                     DataTable dt2 = new DataTable();
                     Adpt2.Fill(dt2);
@@ -52,7 +51,7 @@ namespace SSH3.Account
 
                     SqlCommand cmd3 =
                         new SqlCommand("select userID, userInstitution, userPic, userDesignation, userFieldOfIndustry, FullName from users where userID = @userID", con);
-                    cmd3.Parameters.AddWithValue("@userID", user.UserName);
+                    cmd3.Parameters.AddWithValue("@userID", username);
                     con.Open();
                     SqlDataReader reader = cmd3.ExecuteReader();
                     while (reader.Read())
@@ -68,7 +67,7 @@ namespace SSH3.Account
 
                     if (!String.IsNullOrEmpty(filename))
                     {
-                        string imgPath = user.UserName + "_" + filename;
+                        string imgPath = username + "_" + filename;
                         userPicture.ImageUrl = @"~\UserProfilePics\" + imgPath;
                     }
                     else
@@ -81,7 +80,7 @@ namespace SSH3.Account
             {
                 Response.Redirect("~/Account/Login.aspx"); //redirect to main page
             }
-           
+
         }
 
         protected void personalInfoButton_Click(object sender, EventArgs e)

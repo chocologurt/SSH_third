@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button runat="server" CssClass="btn btn-default" Text="Confirm" ID="ConfirmHobby" OnClick="ConfirmHobby_Click" />
+                    <asp:Button runat="server" BackColor="#00ffff" Text="Confirm" ID="ConfirmHobby" OnClick="ConfirmHobby_Click" />
                     <asp:Button runat="server" CssClass="btn btn-info" data-dismiss="modal" Text="Cancel" />
                 </div>
             </div>

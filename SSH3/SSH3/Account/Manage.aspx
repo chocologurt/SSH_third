@@ -95,6 +95,10 @@
                     <dd> 
                         <asp:HyperLink NavigateUrl="/Account/DeactivateAccount" Text="[Deactivate]" ID="DeactivateAccount" runat="server" />
                     </dd>
+                    <dt>Go to Friend's Profile Page:</dt>
+                    <dd>
+                       <asp:Button runat="server" ID="FriendPage" Text="Go!" OnClick="FriendPage_Click" />
+                    </dd>
                 </dl>
             </div>
         </div>
