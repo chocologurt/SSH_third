@@ -76,7 +76,7 @@ namespace SSH3.Account
                     cmd4.Parameters.AddWithValue("@userID", user.UserName);
                     
                     con2.Open();
-                    byte[] img = (byte[])cmd4.ExecuteScalar();
+                    string img = cmd4.ExecuteScalar().ToString();
                     con2.Close();
                     //if (!String.IsNullOrEmpty(filename))
                     //{
@@ -87,7 +87,7 @@ namespace SSH3.Account
                     //{
                     //    userPicture.ImageUrl = @"~\UserProfilePics\profile-icon-png-905.png";
                     //}
-                    if (img == null)
+                    if (String.IsNullOrEmpty(img))
                     {
                         userPicture.ImageUrl = "/Imagesss/profile-icon-png-905.png";
                     }

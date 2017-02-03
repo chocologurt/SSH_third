@@ -7,45 +7,54 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SSH3.Account {
+namespace SSH3.AdminConsole {
     
     
-    public partial class DeactivateAccount {
+    public partial class Admin {
         
         /// <summary>
-        /// reasonDropDownList control.
+        /// userAccessFail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList reasonDropDownList;
+        protected global::System.Web.UI.WebControls.Label userAccessFail;
         
         /// <summary>
-        /// otherReasonDiv control.
+        /// AspNetGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl otherReasonDiv;
+        protected global::System.Web.UI.WebControls.GridView AspNetGridView;
         
         /// <summary>
-        /// otherReasonTxtBox control.
+        /// userDeactivation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox otherReasonTxtBox;
+        protected global::System.Web.UI.WebControls.Label userDeactivation;
         
         /// <summary>
-        /// submitBtn control.
+        /// types_of_reasons control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submitBtn;
+        protected global::System.Web.UI.WebControls.Label types_of_reasons;
+        
+        /// <summary>
+        /// userDeactivateGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView userDeactivateGridView;
     }
 }
