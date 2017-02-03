@@ -12,6 +12,7 @@ using System.Diagnostics;
 using SendGrid;
 using System.Net;
 
+
 namespace SSH3
 {
     public class EmailService : IIdentityMessageService
@@ -125,6 +126,8 @@ public class SmsService : IIdentityMessageService
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
+         
+
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -157,4 +160,6 @@ public class SmsService : IIdentityMessageService
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+
+   
 }

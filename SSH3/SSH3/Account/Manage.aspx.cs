@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Owin;
 using SSH3.Models;
 
+
 namespace SSH3.Account
 {
     public partial class Manage : System.Web.UI.Page
@@ -32,6 +33,8 @@ namespace SSH3.Account
         public bool TwoFactorBrowserRemembered { get; private set; }
 
         public int LoginsCount { get; set; }
+
+     
 
         protected void Page_Load()
         {
@@ -156,5 +159,7 @@ namespace SSH3.Account
         {
             Response.Redirect("/Account/FriendProfilePage?m=helloWanitaa");
         }
+
+       
     }
 }
