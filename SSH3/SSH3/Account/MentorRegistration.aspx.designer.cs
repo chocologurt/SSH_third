@@ -85,15 +85,6 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.TextBox MentorDesignation;
         
         /// <summary>
-        /// PasswordSelection control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList PasswordSelection;
-        
-        /// <summary>
         /// textPassword control.
         /// </summary>
         /// <remarks>
@@ -112,6 +103,15 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.TextBox MentorPassword;
         
         /// <summary>
+        /// showorhidepassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton showorhidepassword;
+        
+        /// <summary>
         /// ConfirmPassword control.
         /// </summary>
         /// <remarks>
@@ -119,6 +119,24 @@ namespace SSH3.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ConfirmPassword;
+        
+        /// <summary>
+        /// imagePasswordEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label imagePasswordEnabled;
+        
+        /// <summary>
+        /// YesOrNoImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList YesOrNoImage;
         
         /// <summary>
         /// imagePassword control.

@@ -16,7 +16,7 @@
                     <div class="col-md-10">
                         <asp:FileUpload ID="FileUpload1" runat="server" />
                         <br />
-                        <asp:Button ID="btnPreview" runat="server" Text="Preview ProfilePicture" OnClick="btnPreview_Click" />
+                        <asp:Button ID="btnPreview" runat="server" Text="Submit ProfilePicture" OnClick="btnPreview_Click" />
                         <br />
                     </div>
                     <br />

@@ -39,7 +39,7 @@ namespace SSH3.Account
                     SkillsGridView.DataSource = dt;
                     SkillsGridView.DataBind();
 
-                    string filename = "";
+                   // string filename = "";
 
                     SqlCommand cmd2 = new SqlCommand("select * from userHobbies where Username = @userId", con);
                     cmd2.Parameters.AddWithValue("@userId", username);
@@ -50,7 +50,7 @@ namespace SSH3.Account
                     HobbiesGridView.DataBind();
 
                     SqlCommand cmd3 =
-                        new SqlCommand("select userID, userInstitution, userPic, userDesignation, userFieldOfIndustry, FullName from users where userID = @userID", con);
+                        new SqlCommand("select userID, userInstitution, userDesignation, userFieldOfIndustry, FullName from users where userID = @userID", con);
                     cmd3.Parameters.AddWithValue("@userID", username);
                     con.Open();
                     SqlDataReader reader = cmd3.ExecuteReader();
@@ -58,21 +58,37 @@ namespace SSH3.Account
                     {
                         userUsernameText.Text = reader["userID"].ToString();
                         userInstitutionText.Text = reader["userInstitution"].ToString();
-                        filename = reader["userPic"].ToString();
                         userDesignationText.Text = reader["userDesignation"].ToString();
                         userFOIText.Text = reader["userFieldOfIndustry"].ToString();
                         userFullNameText.Text = reader["FullName"].ToString();
                     }
                     con.Close();
 
-                    if (!String.IsNullOrEmpty(filename))
+                    string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
+                    SqlConnection con2 = new SqlConnection(cs2);
+                    SqlCommand cmd4 =
+                        new SqlCommand("select userPic from users where userID=@userID", con2);
+                    cmd4.Parameters.AddWithValue("@userID", username);
+                    con2.Open();
+                    byte[] img = (byte[])cmd4.ExecuteScalar();
+                    con2.Close();
+
+                    //if (!String.IsNullOrEmpty(filename))
+                    //{
+                    //    string imgPath = username + "_" + filename;
+                    //    userPicture.ImageUrl = @"~\UserProfilePics\" + imgPath;
+                    //}
+                    //else
+                    //{
+                    //    userPicture.ImageUrl = @"~\UserProfilePics\profile-icon-png-905.png";
+                    //}
+                    if (img == null)
                     {
-                        string imgPath = username + "_" + filename;
-                        userPicture.ImageUrl = @"~\UserProfilePics\" + imgPath;
+                        userPicture.ImageUrl = "/Imagesss/profile-icon-png-905.png";
                     }
                     else
                     {
-                        userPicture.ImageUrl = @"~\UserProfilePics\profile-icon-png-905.png";
+                        userPicture.ImageUrl = "GetImage.ashx?username=" + username;
                     }
                 }
             }

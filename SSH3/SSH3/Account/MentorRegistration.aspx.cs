@@ -1,27 +1,30 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using SSH3.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace SSH3.Account
 {
     public partial class MentorRegistration : System.Web.UI.Page
     {
         protected string dbConn = "DefaultConnection";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Context.User.Identity.IsAuthenticated)
             {
                 Response.Redirect("~/Default.aspx");
+            }
+            if (IsPostBack)
+            {
+                MentorPassword.Attributes.Add("value", MentorPassword.Text);
+                ConfirmPassword.Attributes.Add("value", ConfirmPassword.Text);
             }
         }
 
@@ -31,28 +34,51 @@ namespace SSH3.Account
             var user2 = manager2.FindByName(mentorUsername.Text);
             if (user2 == null)
             {
+                if (String.IsNullOrEmpty(MentorPassword.Text) && String.IsNullOrEmpty(ConfirmPassword.Text))
+                {
+                    ErrorMessage.Text = " Please fill in the Password textboxes";
+                }
+                else if (String.IsNullOrEmpty(MentorPassword.Text))
+                {
+                    ErrorMessage.Text = "Your password is empty";
+                }
+                else if (String.IsNullOrEmpty(ConfirmPassword.Text))
+                {
+                    ErrorMessage.Text = "Your Confirm Password is empty.";
+                }
+
+                if (YesOrNoImage.TabIndex == 0)
+                {
+                    ErrorMessage.Text = "Please select something in the radio buttons";
+                }
 
                 string password = "";
 
-                if (textPassword.Visible == true)
+                if (textPassword.Visible == true && imagePassword.Visible == false)
                 {
                     password = MentorPassword.Text;
                 }
-                else if (imagePassword.Visible == true)
+                else if (imagePassword.Visible == true && textPassword.Visible == true)
                 {
-                    string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
-                    if (fileExt == ".jpg")
+                    if (imagePasswordControl.HasFile)
                     {
-                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                        byte[] imgbyte = imagePasswordControl.FileBytes;
-                        //convert byte[] to Base64 string
-                        string base64ImgString = Convert.ToBase64String(imgbyte);
-                        password = base64ImgString;
+                        string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
+                        if (fileExt == ".jpg")
+                        {
+                            // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                            byte[] imgbyte = imagePasswordControl.FileBytes;
+                            //convert byte[] to Base64 string
+                            string base64ImgString = Convert.ToBase64String(imgbyte);
+                            password = MentorPassword.Text + base64ImgString;
+                        }
+                        else
+                        {
+                            ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                        }
                     }
                     else
                     {
-
-                        ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                        ErrorMessage.Text = "Please Select Something in the radio button list.";
                     }
                 }
                 //var userStore = new UserStore<IdentityUser>();
@@ -66,10 +92,8 @@ namespace SSH3.Account
                 var user = new ApplicationUser() { UserName = mentorUsername.Text, Email = MentorEmail.Text, PhoneNumber = MentorPhoneNumber.Text };
                 IdentityResult result = manager.Create(user, password);
 
-
                 if (result.Succeeded)
                 {
-
                     string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
                     SqlCommand cmd =
@@ -97,7 +121,6 @@ namespace SSH3.Account
                     cmd2.ExecuteNonQuery();
                     con2.Close();
 
-
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     string code = manager.GenerateEmailConfirmationToken(user.Id);
                     string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
@@ -108,8 +131,8 @@ namespace SSH3.Account
 
                     var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
                     var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                    
-                   // authenticationManager.SignIn(new AuthenticationProperties() { }, userIdentity);
+
+                    // authenticationManager.SignIn(new AuthenticationProperties() { }, userIdentity);
                     Response.Redirect("/Account/EmailBeingSent.aspx");
                 }
                 else
@@ -132,25 +155,33 @@ namespace SSH3.Account
                 else if (mentorUsername.Text == username2)
                 {
                     ErrorMessage.Text = "UserName is already taken, please choose a different user name. ";
-
                 }
             }
         }
 
-
-
-        protected void PasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        protected void YesOrNoImage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.PasswordSelection.SelectedValue == "1")
+            if (YesOrNoImage.SelectedValue == "Yes")
             {
-                this.textPassword.Visible = true;
-                this.imagePassword.Visible = false;
+                imagePassword.Visible = true;
             }
-
-            else if (this.PasswordSelection.SelectedValue == "2")
+            else if (YesOrNoImage.SelectedValue == "No")
             {
-                this.textPassword.Visible = false;
-                this.imagePassword.Visible = true;
+                imagePassword.Visible = false;
+            }
+        }
+
+        protected void showorhidepassword_Click(object sender, ImageClickEventArgs e)
+        {
+            if (MentorPassword.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.Password))
+            {
+                MentorPassword.TextMode = System.Web.UI.WebControls.TextBoxMode.SingleLine;
+                showorhidepassword.ImageUrl = "/Imagesss/eye_close-01-512.png";
+            }
+            else if (MentorPassword.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.SingleLine))
+            {
+                MentorPassword.TextMode = System.Web.UI.WebControls.TextBoxMode.Password;
+                showorhidepassword.ImageUrl = "/Imagesss/eye3-01-128.png";
             }
         }
     }

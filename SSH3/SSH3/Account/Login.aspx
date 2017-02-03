@@ -30,24 +30,12 @@
                             <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Password" CssClass="text-danger" ErrorMessage="The password field is required." />
                         </div>--%>
-
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="PasswordSelection" CssClass="col-md-2 control-label">Type of Password</asp:Label>
-                        <div class="col-md-10">
-                            <asp:RadioButtonList ID="PasswordSelection" runat="server" AutoPostBack="true" OnSelectedIndexChanged="PasswordSelection_SelectedIndexChanged">
-                                <asp:ListItem Text="I want text as a Password" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="I want an image as my Password" Value="2"></asp:ListItem>
-                            </asp:RadioButtonList>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="PasswordSelection"
-                                CssClass="text-danger" ErrorMessage="This is required to choose a selection" />
-                        </div>
-                    </div>
-
-                    <div id="textPassword" runat="server" visible="false">
+                    <div id="textPassword" runat="server" visible="true">
                         <div class="form-group">
                             <asp:Label runat="server" AssociatedControlID="Password" CssClass="col-md-2 control-label">Password</asp:Label>
                             <div class="col-md-10">
                                 <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
+                                 <asp:ImageButton runat="server" ID="showorhidepassword" ImageUrl="~/Imagesss/eye3-01-128.png" OnClick="showorhidepassword_Click" Height="50px" Width="50px" />
                                <%-- <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
                                     CssClass="text-danger" ErrorMessage="The password field is required." />--%>
                             </div>
@@ -63,6 +51,17 @@
                             </div>
                         </div>--%>
                     </div>
+                        <div class="form-group">
+            <asp:Label runat="server" ID="imagePasswordEnabled" AssociatedControlID="YesOrNoImage" CssClass="col-md-2 control-label">Did you use an image together with your above text as a password?</asp:Label>
+            <div class="col-md-10">
+                <asp:RadioButtonList runat="server" AutoPostBack="true" RepeatDirection="Horizontal" ID="YesOrNoImage" OnSelectedIndexChanged="YesOrNoImage_SelectedIndexChanged" >
+                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                </asp:RadioButtonList>
+               <%--  <asp:RequiredFieldValidator runat="server" ControlToValidate="YesOrNoImage"
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Please check no if you dont wish to use image." />--%>
+            </div>
+        </div>
                     <div id="imagePassword" runat="server" visible="false">
                         <div class="form-group">
                             <asp:Label runat="server" AssociatedControlID="imagePasswordControl" CssClass="col-md-2 control-label">Please choose an image</asp:Label>
@@ -77,14 +76,14 @@
                  <div class="form-group">
 <cc1:GoogleReCaptcha ID="ctrlGoogleReCaptcha" runat="server" PublicKey="6LchHRMUAAAAAAliGHiZos6bwaC0CxjwFKgL30BX" PrivateKey="6LchHRMUAAAAAD04mbR-MYLGginbbojlsEcoN1TT" />
                     </div>
-                <%--<div class="form-group">
+                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             <asp:CheckBox runat="server" ID="RememberMe" />
                             <asp:Label runat="server" AssociatedControlID="RememberMe">Remember me?</asp:Label>
                         </div>
                     </div>
-                </div>--%>
+                </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <asp:Button runat="server" OnClick="LogIn" Text="Log in" CssClass="btn btn-default" />
@@ -102,10 +101,10 @@
             </section>
         </div>
 
-        <div class="col-md-4">
+       <%-- <div class="col-md-4">
             <section id="socialLoginForm">
                 <uc:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
             </section>
-        </div>
+        </div>--%>
     </div>
 </asp:Content>

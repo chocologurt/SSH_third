@@ -22,10 +22,10 @@
                         <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Change]" Visible="false" ID="ChangePassword" runat="server" />
                         <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Create]" Visible="false" ID="CreatePassword" runat="server" />
                     </dd>
-                    <dt>External Logins:</dt>
+                    <%--<dt>External Logins:</dt>
                     <dd><%: LoginsCount %>
                         <asp:HyperLink NavigateUrl="/Account/ManageLogins" Text="[Manage]" runat="server" />
-                    </dd>
+                    </dd>--%>
                     <%--
                         Phone Numbers can used as a second factor of verification in a two-factor authentication system.
                         See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
@@ -51,27 +51,27 @@
                     <% } %>
 
                    
-                    <%-- <dt>Two-Factor Authentication:</dt>
+                    <dt>Two-Factor Authentication:</dt>
                     <dd>
                         <%--<p>
                             There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                             for details on setting up this ASP.NET application to support two-factor authentication.
                         </p>--%>
-                    <%-- <% if (TwoFactorEnabled)
+                    <% if (TwoFactorEnabled)
                             { %>
 
                         <%--                        Enabled--%>
-                    <%--<asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />--%>
+                    <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
 
-                    <%-- <% }
-                            //else
-                           <%-- { %>--%>
+                    <% }
+                            else
+                         { %>
 
                     <%--  Disabled--%>
-                    <%--<asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />--%>
+                    <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
 
-                    <%-- <% } %>--%>
-                    <%--   </dd>--%>
+                     <% } %>
+                      </dd>
                     <dt>Change Particulars:</dt>
                     <dd>
                         <asp:HyperLink NavigateUrl="~/Account/ChangeParticulars" Text="[Change]" ID="ChangeParticulars" runat="server" />

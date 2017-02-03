@@ -22,11 +22,15 @@ namespace SSH3.Account
             RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
             ForgotPasswordHyperLink.NavigateUrl = "Forgot";
-            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
+            //OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
             if (!String.IsNullOrEmpty(returnUrl))
             {
                 RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
+            }
+            if (IsPostBack)
+            {
+                Password.Attributes.Add("value", Password.Text);
             }
         }
 
@@ -34,25 +38,49 @@ namespace SSH3.Account
         {
             if (IsValid)
             {
+                if (String.IsNullOrEmpty(Password.Text) )
+                {
+                    
+                    FailureText.Text = " Please fill in the Password textboxes";
+                }
+                if (YesOrNoImage.TabIndex == 0)
+                {
+                    FailureText.Text = "Please select something in the radio buttons";
+                }
+
                 string password = "";
-                if (textPassword.Visible == true)
+                if (textPassword.Visible == true && imagePassword.Visible == false)
                 {
                     password = Password.Text;
                 }
-                else if (imagePassword.Visible == true)
+
+                else if (imagePassword.Visible == true && imagePassword.Visible == true)
                 {
+                    if (imagePasswordControl.HasFile)
+                        {
+
                     string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
-                    if (fileExt == ".jpg")
+
+                        if (fileExt == ".jpg")
                     {
-                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                        byte[] imgbyte = imagePasswordControl.FileBytes;
-                        //convert byte[] to Base64 string
-                        string base64ImgString = Convert.ToBase64String(imgbyte);
-                        password = base64ImgString;
+                        
+                            // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                            byte[] imgbyte = imagePasswordControl.FileBytes;
+                            //convert byte[] to Base64 string
+                            string base64ImgString = Convert.ToBase64String(imgbyte);
+                            password = Password.Text + base64ImgString;
+                        }
+
+                        else
+                        {
+                            FailureText.Text = "Upload Status: Only JPEG files are available for upload";
+                        }
                     }
+
                     else
                     {
-                        FailureText.Text = "Upload Status: Only JPEG files are available for upload";
+                        
+                        FailureText.Text = "Please uplaod something.";
                     }
                 }
 
@@ -79,7 +107,7 @@ namespace SSH3.Account
                         manager.UpdateSecurityStamp(user.Id);
                         // This doen't count login failures towards account lockout
                         // To enable password failures to trigger lockout, change to shouldLockout: true
-                        var result = signinManager.PasswordSignIn(userName.Text, password, false, shouldLockout: true);
+                        var result = signinManager.PasswordSignIn(userName.Text, password, RememberMe.Checked, shouldLockout: true);
 
                         switch (result)
                         {
@@ -89,7 +117,12 @@ namespace SSH3.Account
                             case SignInStatus.LockedOut:
                                 Response.Redirect("/Account/Lockout");
                                 break;
-                            
+                            case SignInStatus.RequiresVerification:
+                                Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
+                                                                Request.QueryString["ReturnUrl"],
+                                                                RememberMe.Checked),
+                                                  true);
+                                break;
                             case SignInStatus.Failure:
                             default:
                                 FailureText.Text = "Invalid login attempt";
@@ -122,19 +155,29 @@ namespace SSH3.Account
             }
         }
 
-
-
-        protected void PasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        protected void YesOrNoImage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.PasswordSelection.SelectedValue == "1")
+            if (YesOrNoImage.SelectedValue == "Yes")
             {
-                this.textPassword.Visible = true;
-                this.imagePassword.Visible = false;
+                imagePassword.Visible = true;
             }
-            else if (this.PasswordSelection.SelectedValue == "2")
+            else if(YesOrNoImage.SelectedValue == "No")
             {
-                this.textPassword.Visible = false;
-                this.imagePassword.Visible = true;
+                imagePassword.Visible = false;
+            }
+        }
+
+        protected void showorhidepassword_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Password.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.Password))
+            {
+                Password.TextMode = System.Web.UI.WebControls.TextBoxMode.SingleLine;
+                showorhidepassword.ImageUrl = "/Imagesss/eye_close-01-512.png";
+            }
+            else if (Password.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.SingleLine))
+            {
+                Password.TextMode = System.Web.UI.WebControls.TextBoxMode.Password;
+                showorhidepassword.ImageUrl = "/Imagesss/eye3-01-128.png";
             }
 
 

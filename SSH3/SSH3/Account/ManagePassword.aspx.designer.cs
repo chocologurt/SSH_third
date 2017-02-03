@@ -58,15 +58,6 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.PlaceHolder changePasswordHolder;
         
         /// <summary>
-        /// CurrentPasswordSelection control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList CurrentPasswordSelection;
-        
-        /// <summary>
         /// textCurrentPassword control.
         /// </summary>
         /// <remarks>
@@ -85,6 +76,33 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.TextBox CurrentPassword;
         
         /// <summary>
+        /// showorhidepassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton showorhidepassword;
+        
+        /// <summary>
+        /// imagePasswordEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label imagePasswordEnabled;
+        
+        /// <summary>
+        /// YesOrNoImageCurrent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList YesOrNoImageCurrent;
+        
+        /// <summary>
         /// imageCurrentPassword control.
         /// </summary>
         /// <remarks>
@@ -101,15 +119,6 @@ namespace SSH3.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload imageCurrentPasswordControl;
-        
-        /// <summary>
-        /// NewPasswordSelection control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList NewPasswordSelection;
         
         /// <summary>
         /// textNewPassword control.
@@ -139,6 +148,15 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.TextBox NewPassword;
         
         /// <summary>
+        /// showorhidepassword1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton showorhidepassword1;
+        
+        /// <summary>
         /// ConfirmNewPasswordLabel control.
         /// </summary>
         /// <remarks>
@@ -155,6 +173,24 @@ namespace SSH3.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ConfirmNewPassword;
+        
+        /// <summary>
+        /// newImageEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label newImageEnabled;
+        
+        /// <summary>
+        /// YesOrNoImageNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList YesOrNoImageNew;
         
         /// <summary>
         /// imageNewPassword control.

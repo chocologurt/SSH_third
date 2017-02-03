@@ -2,17 +2,19 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using SSH3.Models;
 using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace SSH3.Account
 {
     public partial class AddorChangeProfilePic : System.Web.UI.Page
     {
-        private string filename = "";
-        private string imgPath = "";
+       
         protected string dbConn = "DefaultConnection";
         protected string SuccessMessage
         {
@@ -24,37 +26,15 @@ namespace SSH3.Account
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-
-
-                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                var currentUser = manager.FindById(Context.User.Identity.GetUserId());
-                var username = currentUser.UserName;
-
-                string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
-                SqlConnection con = new SqlConnection(cs);
-                SqlCommand cmd =
-                    new SqlCommand("SELECT userPic FROM users WHERE userID = @userName", con);
-                cmd.Parameters.AddWithValue("@userName", username);
-                con.Open();
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                if (!IsPostBack)
                 {
-                    while (reader.Read())
-                    {
-                        filename = Convert.ToString(reader["userPic"]);
-                    }
-                }
 
-                con.Close();
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    var currentUser = manager.FindById(Context.User.Identity.GetUserId());
+                    var username = currentUser.UserName;
 
-                if (!String.IsNullOrEmpty(filename))
-                {
-                    string path = Server.MapPath("~/UserProfilePics/");
-                    imgPath = username + "_" + filename;
-                    System.Drawing.Image img = System.Drawing.Image.FromFile(string.Concat(path, imgPath));
-
-                    img = resizeImage(img);
-                    imgDemo.ImageUrl = @"~\UserProfilePics\" + imgPath;
+                    
+                    imgDemo.ImageUrl = "GetImage.ashx?username=" + username;
                 }
             }
             else
@@ -73,28 +53,24 @@ namespace SSH3.Account
                 string extension = Path.GetExtension(FileUpload1.FileName);
                 if (extension.ToLower() == ".jpg")
                 {
-                    Stream strm = FileUpload1.PostedFile.InputStream;
-                    using (var image = System.Drawing.Image.FromStream(strm))
-                    {
-                        int newWidth = 320; // New Width of Image in Pixel
-                        int newHeight = 240; // New Height of Image in Pixel
-                        var thumbImg = new Bitmap(newWidth, newHeight);
-                        var thumbGraph = Graphics.FromImage(thumbImg);
-                        thumbGraph.CompositingQuality = CompositingQuality.HighQuality;
-                        thumbGraph.SmoothingMode = SmoothingMode.HighQuality;
-                        thumbGraph.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        var imgRectangle = new Rectangle(0, 0, newWidth, newHeight);
-                        thumbGraph.DrawImage(image, imgRectangle);
-                        filename = FileUpload1.FileName;
-                        imgPath = username + "_" + FileUpload1.FileName;
-                        // Save the file
-                        string targetPath = Server.MapPath(@"~\UserProfilePics\") + imgPath;
-                        thumbImg.Save(targetPath, image.RawFormat);
-                        //Show Image
-                        imgDemo.ImageUrl = @"~\UserProfilePics\" + imgPath;
-                    }
+                    
+                    Byte[] bytes;
+                    Byte[] data = null;
+                   
+                     
+                       
+                       
+                            //To create a PostedFile
+                            HttpPostedFile File = FileUpload1.PostedFile;
+                            //Create byte Array with file len
+                            bytes = new Byte[File.ContentLength];
+                            //force the control to load data in array
+                            File.InputStream.Read(bytes, 0, File.ContentLength);
+                      
 
-                    string data = "";
+
+
+                   
 
                     string cs2 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con2 = new SqlConnection(cs2);
@@ -107,13 +83,13 @@ namespace SSH3.Account
                     {
                         while (reader.Read())
                         {
-                            data = Convert.ToString(reader["userPic"]);
+                            data = (byte[])(reader["userPic"]);
                         }
                     }
 
                     con2.Close();
 
-                    if (!String.IsNullOrEmpty(data))
+                    if (data != null)
                     {
                        
 
@@ -121,7 +97,7 @@ namespace SSH3.Account
                         SqlConnection con = new SqlConnection(cs);
                         SqlCommand cmd =
                             new SqlCommand("UPDATE users SET userPic = @image WHERE userID = @userId", con);
-                        cmd.Parameters.AddWithValue("@image", filename);
+                        cmd.Parameters.AddWithValue("@image", bytes);
                         cmd.Parameters.AddWithValue("@userId", username);
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -131,13 +107,13 @@ namespace SSH3.Account
 
                         Response.Redirect("~/Account/Manage?m=ChangePicSuccess");
                     }
-                    else if (String.IsNullOrEmpty(data))
+                    else if (data == null)
                     {
                         string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                         SqlConnection con4 = new SqlConnection(cs4);
                         SqlCommand cmd4 =
                             new SqlCommand("UPDATE users SET userPic = @image WHERE userID = @userId", con4);
-                        cmd4.Parameters.AddWithValue("@image", filename);
+                        cmd4.Parameters.AddWithValue("@image", bytes);
                         cmd4.Parameters.AddWithValue("@userId", username);
                        
                         con4.Open();
@@ -153,44 +129,10 @@ namespace SSH3.Account
             }
         }
 
-        private static System.Drawing.Image resizeImage(System.Drawing.Image imgToResize, Size size)
-        {
-            //Get the image current width
-            int sourceWidth = imgToResize.Width;
-            //Get the image current height
-            int sourceHeight = imgToResize.Height;
+        
 
-            float nPercent = 0;
-            float nPercentW = 0;
-            float nPercentH = 0;
-            //Calulate  width with new desired size
-            nPercentW = ((float)size.Width / (float)sourceWidth);
-            //Calculate height with new desired size
-            nPercentH = ((float)size.Height / (float)sourceHeight);
+        
 
-            if (nPercentH < nPercentW)
-                nPercent = nPercentH;
-            else
-                nPercent = nPercentW;
-            //New Width
-            int destWidth = (int)(sourceWidth * nPercent);
-            //New Height
-            int destHeight = (int)(sourceHeight * nPercent);
-
-            Bitmap b = new Bitmap(destWidth, destHeight);
-            Graphics g = Graphics.FromImage((System.Drawing.Image)b);
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            // Draw image with new width and height
-            g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
-            g.Dispose();
-            return (System.Drawing.Image)b;
-        }
-
-        private System.Drawing.Image resizeImage(System.Drawing.Image img)
-        {
-            Bitmap b = new Bitmap(img);
-            System.Drawing.Image i = resizeImage(b, new Size(100, 100));
-            return i;
-        }
+       
     }
 }

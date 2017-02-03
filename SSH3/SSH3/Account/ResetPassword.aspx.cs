@@ -18,30 +18,70 @@ namespace SSH3.Account
             private set;
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Context.User.Identity.IsAuthenticated)
+            {
+                Password.Attributes.Add("value", Password.Text);
+                ConfirmPassword.Attributes.Add("value", ConfirmPassword.Text);
+            }
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
+
         protected void Reset_Click(object sender, EventArgs e)
         {
             string code = IdentityHelper.GetCodeFromRequest(Request);
             if (code != null)
             {
+
+                if (String.IsNullOrEmpty(Password.Text) && String.IsNullOrEmpty(ConfirmPassword.Text))
+                {
+                    ErrorMessage.Text = " Please fill in the Password textboxes";
+                }
+                else if (String.IsNullOrEmpty(Password.Text))
+                {
+                    ErrorMessage.Text = "Your password is empty";
+                }
+                else if (String.IsNullOrEmpty(ConfirmPassword.Text))
+                {
+                    ErrorMessage.Text = "Your Confirm Password is empty.";
+                }
+                if (YesOrNoImage.TabIndex == 0)
+                {
+                    ErrorMessage.Text = "Please select something in the radio buttons";
+                }
+
                 string password = "";
-                if (textPassword.Visible == true)
+                if (textPassword.Visible == true && imagePassword.Visible == false)
                 {
                     password = Password.Text;
                 }
-                else if (imagePassword.Visible == true)
+                else if (imagePassword.Visible == true && textPassword.Visible == true)
                 {
+                    if (imagePasswordControl.HasFile)
+                        {
                     string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
                     if (fileExt == ".jpg")
                     {
-                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                        byte[] imgbyte = imagePasswordControl.FileBytes;
-                        //convert byte[] to Base64 string
-                        string base64ImgString = Convert.ToBase64String(imgbyte);
-                        password = base64ImgString;
+                        
+                            // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                            byte[] imgbyte = imagePasswordControl.FileBytes;
+                            //convert byte[] to Base64 string
+                            string base64ImgString = Convert.ToBase64String(imgbyte);
+                            password = Password.Text + base64ImgString;
+                        }
+                        else
+                        {
+                            ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                        }
                     }
                     else
                     {
-                        ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                        
+                        ErrorMessage.Text = "Please Upload something.";
                     }
                 }
 
@@ -93,18 +133,31 @@ namespace SSH3.Account
             ErrorMessage.Text = "An error has occurred";
         }
 
-        protected void PasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        protected void YesOrNoImage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.PasswordSelection.SelectedValue == "1")
+            if (YesOrNoImage.SelectedValue == "Yes")
             {
-                this.textPassword.Visible = true;
-                this.imagePassword.Visible = false;
+                imagePassword.Visible = true;
             }
-            else if (this.PasswordSelection.SelectedValue == "2")
+            else if (YesOrNoImage.SelectedValue == "No"){
+                imagePassword.Visible = false;
+            }
+        }
+
+        protected void showorhidepassword_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Password.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.Password))
             {
-                this.textPassword.Visible = false;
-                this.imagePassword.Visible = true;
+                Password.TextMode = System.Web.UI.WebControls.TextBoxMode.SingleLine;
+                showorhidepassword.ImageUrl = "/Imagesss/eye_close-01-512.png";
             }
+            else if (Password.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.SingleLine))
+            {
+                Password.TextMode = System.Web.UI.WebControls.TextBoxMode.Password;
+                showorhidepassword.ImageUrl = "/Imagesss/eye3-01-128.png";
+            }
+
+
         }
     }
 }

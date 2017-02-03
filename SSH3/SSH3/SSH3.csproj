@@ -253,8 +253,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Account\GetImage.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Imagesss\eye3-01-128.png" />
+    <Content Include="Imagesss\eye_close-01-512.png" />
     <Content Include="Imagesss\introductions_800_clr_10909-1.png" />
+    <Content Include="Imagesss\profile-icon-png-905.png" />
     <Content Include="Imagesss\profile-icon-png-906.png" />
     <Content Include="Imagesss\settings-5-xxl.png" />
     <Content Include="Imagesss\user_mentee_med.jpg" />
@@ -399,6 +403,9 @@
     </Compile>
     <Compile Include="Account\FriendProfilePage.aspx.designer.cs">
       <DependentUpon>FriendProfilePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\GetImage.ashx.cs">
+      <DependentUpon>GetImage.ashx</DependentUpon>
     </Compile>
     <Compile Include="Account\Lockout.aspx.cs">
       <DependentUpon>Lockout.aspx</DependentUpon>

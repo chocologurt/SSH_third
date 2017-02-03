@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using SSH3.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using System.Data.SqlClient;
-using SSH3.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.IO;
 
 namespace SSH3.Account
 {
     public partial class ManagePassword : System.Web.UI.Page
     {
         protected string dbConn = "DefaultConnection";
+
         protected string SuccessMessage
         {
             get;
@@ -53,6 +53,13 @@ namespace SSH3.Account
                         Form.Action = ResolveUrl("~/Account/Manage");
                     }
                 }
+                if (IsPostBack)
+                {
+                    CurrentPassword.Attributes.Add("value", CurrentPassword.Text);
+
+                    NewPassword.Attributes.Add("value", NewPassword.Text);
+                    ConfirmNewPassword.Attributes.Add("value", ConfirmNewPassword.Text);
+                }
             }
             else
             {
@@ -60,12 +67,10 @@ namespace SSH3.Account
             }
         }
 
-
         protected void ChangePassword_Click(object sender, EventArgs e)
         {
             if (IsValid)
             {
-
                 var manager2 = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                 var user2 = manager2.FindByName(Context.User.Identity.GetUserName());
                 string username = user2.UserName;
@@ -73,56 +78,92 @@ namespace SSH3.Account
                 string currentPassword = "";
                 string newPassword = "";
 
-               if (imageCurrentPassword.Visible == true)
+                if (YesOrNoImageCurrent.TabIndex == 0)
                 {
-                    string fileExt = Path.GetExtension(imageCurrentPasswordControl.PostedFile.FileName);
-                    if (fileExt == ".jpg")
-                    {
-                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                        byte[] imgbyte = imageCurrentPasswordControl.FileBytes;
-                        //convert byte[] to Base64 string
-                        string base64ImgString = Convert.ToBase64String(imgbyte);
-                        currentPassword = base64ImgString;
-                    }
-                    else
-                    {
-                        ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
-                    }
+                    ErrorMessage.Text = "Please select something in the first set of radio buttons";
                 }
-               else if(textCurrentPassword.Visible == true)
+                if (YesOrNoImageNew.TabIndex == 0)
                 {
-                   
-                        currentPassword = CurrentPassword.Text;
-                    
-                }
-                if (imageNewPassword.Visible == true)
-                {
-                    string fileExt = Path.GetExtension(newImagePasswordControl.PostedFile.FileName);
-                    if (fileExt == ".jpg")
-                    {
-                        // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                        byte[] imgbyte = newImagePasswordControl.FileBytes;
-                        //convert byte[] to Base64 string
-                        string base64ImgString = Convert.ToBase64String(imgbyte);
-                        newPassword = base64ImgString;
-                    }
-                    else
-                    {
-                        ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
-                    }
-                }
-                else if (textNewPassword.Visible == true)
-                {
-                   
-                        newPassword = NewPassword.Text;
-                    
+                    ErrorMessage.Text = "Please select something in the second set radio buttons";
                 }
 
+                if (String.IsNullOrEmpty(CurrentPassword.Text))
+                {
+                    ErrorMessage.Text = "Your Current password is empty";
+                }
+
+                if (String.IsNullOrEmpty(NewPassword.Text) && String.IsNullOrEmpty(ConfirmNewPassword.Text))
+                {
+                    ErrorMessage.Text = " Please fill in the Password textboxes";
+                }
+                else if (String.IsNullOrEmpty(NewPassword.Text))
+                {
+                    ErrorMessage.Text = "Your New password is empty";
+                }
+                else if (String.IsNullOrEmpty(NewPassword.Text))
+                {
+                    ErrorMessage.Text = "Your Confirm New Password is empty.";
+                }
+
+                if (imageCurrentPassword.Visible == true && textCurrentPassword.Visible == true)
+                {
+                    if (imageCurrentPasswordControl.HasFile)
+                    {
+                        string fileExt = Path.GetExtension(imageCurrentPasswordControl.PostedFile.FileName);
+                        if (fileExt == ".jpg")
+                        {
+                            // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                            byte[] imgbyte = imageCurrentPasswordControl.FileBytes;
+                            //convert byte[] to Base64 string
+                            string base64ImgString = Convert.ToBase64String(imgbyte);
+                            currentPassword = CurrentPassword.Text + base64ImgString;
+                        }
+                        else
+                        {
+                            ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                        }
+                    }
+                    else
+                    {
+                        ErrorMessage.Text = "Please Upload something in the current password image field.";
+                    }
+                }
+                else if (textCurrentPassword.Visible == true && imageCurrentPassword.Visible == false)
+                {
+                    currentPassword = CurrentPassword.Text;
+                }
+                if (imageNewPassword.Visible == true && textNewPassword.Visible == true)
+                {
+                    if (newImagePasswordControl.HasFile)
+                    {
+                        string fileExt = Path.GetExtension(newImagePasswordControl.PostedFile.FileName);
+                        if (fileExt == ".jpg")
+                        {
+                            // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                            byte[] imgbyte = newImagePasswordControl.FileBytes;
+                            //convert byte[] to Base64 string
+                            string base64ImgString = Convert.ToBase64String(imgbyte);
+                            newPassword = NewPassword.Text + base64ImgString;
+                        }
+                        else
+                        {
+                            ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                        }
+                    }
+                    else
+                    {
+                        ErrorMessage.Text = "Please upload something in the new password image field.";
+                    }
+                }
+                else if (textNewPassword.Visible == true && imageNewPassword.Visible == false)
+                {
+                    newPassword = NewPassword.Text;
+                }
 
                 var myPasswordHasher = new PasswordHasher();
                 //string hashedpassword = myPasswordHasher.HashPassword(NewPassword.Text);
 
-                //To prevent users from reusing their 5 most recent passwords. 
+                //To prevent users from reusing their 5 most recent passwords.
                 List<String> pwdList = new List<string>(5);
                 List<PasswordVerificationResult> resultsList = new List<PasswordVerificationResult>(5);
 
@@ -153,8 +194,6 @@ namespace SSH3.Account
                 if (resultsList.Contains(PasswordVerificationResult.Success))
                 {
                     ErrorMessage.Text = "Please do not use a recent password";
-
-
                 }
                 else
                 {
@@ -163,7 +202,6 @@ namespace SSH3.Account
                     IdentityResult result = manager.ChangePassword(User.Identity.GetUserId(), currentPassword, newPassword);
                     if (result.Succeeded)
                     {
-
                         if (pwdList.Count < 5)
                         {
                             string hashedpassword = myPasswordHasher.HashPassword(newPassword);
@@ -184,7 +222,6 @@ namespace SSH3.Account
                         }
                         else
                         {
-
                             string hashedpassword = myPasswordHasher.HashPassword(newPassword);
 
                             string cs4 = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
@@ -214,11 +251,9 @@ namespace SSH3.Account
                     else
                     {
                         AddErrors(result);
-
                     }
                 }
             }
-        
         }
 
         protected void SetPassword_Click(object sender, EventArgs e)
@@ -247,31 +282,55 @@ namespace SSH3.Account
             }
         }
 
-        protected void CurrentPasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        protected void YesOrNoImageCurrent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.CurrentPasswordSelection.SelectedValue == "1")
+            if (YesOrNoImageCurrent.SelectedValue == "Yes")
             {
-                this.textCurrentPassword.Visible = true;
-                this.imageCurrentPassword.Visible = false;
+                imageCurrentPassword.Visible = true;
             }
-            else if (this.CurrentPasswordSelection.SelectedValue == "2")
+            else if (YesOrNoImageCurrent.SelectedValue == "No")
             {
-                this.textCurrentPassword.Visible = false;
-                this.imageCurrentPassword.Visible = true;
+                imageCurrentPassword.Visible = false;
             }
         }
 
-        protected void NewPasswordSelection_SelectedIndexChanged(object sender, EventArgs e)
+        protected void YesOrNoImageNew_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.NewPasswordSelection.SelectedValue == "1")
+            if (YesOrNoImageNew.SelectedValue == "Yes")
             {
-                this.textNewPassword.Visible = true;
-                this.imageNewPassword.Visible = false;
+                imageNewPassword.Visible = true;
             }
-            else if (this.NewPasswordSelection.SelectedValue == "2")
+            else if (YesOrNoImageNew.SelectedValue == "No")
             {
-                this.textNewPassword.Visible = false;
-                this.imageNewPassword.Visible = true;
+                imageNewPassword.Visible = false;
+            }
+        }
+
+        protected void showorhidepassword_Click(object sender, ImageClickEventArgs e)
+        {
+            if (CurrentPassword.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.Password))
+            {
+                CurrentPassword.TextMode = System.Web.UI.WebControls.TextBoxMode.SingleLine;
+                showorhidepassword.ImageUrl = "/Imagesss/eye_close-01-512.png";
+            }
+            else if (CurrentPassword.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.SingleLine))
+            {
+                CurrentPassword.TextMode = System.Web.UI.WebControls.TextBoxMode.Password;
+                showorhidepassword.ImageUrl = "/Imagesss/eye3-01-128.png";
+            }
+        }
+
+        protected void showorhidepassword1_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+            if (NewPassword.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.Password))
+            {
+                NewPassword.TextMode = System.Web.UI.WebControls.TextBoxMode.SingleLine;
+                showorhidepassword1.ImageUrl = "/Imagesss/eye_close-01-512.png";
+            }
+            else if (NewPassword.TextMode.Equals(System.Web.UI.WebControls.TextBoxMode.SingleLine))
+            {
+                NewPassword.TextMode = System.Web.UI.WebControls.TextBoxMode.Password;
+                showorhidepassword1.ImageUrl = "/Imagesss/eye3-01-128.png";
             }
         }
     }
