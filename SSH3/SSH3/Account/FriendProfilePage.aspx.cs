@@ -22,10 +22,7 @@ namespace SSH3.Account
             {
                 if (!Page.IsPostBack)
                 {
-                    MultiView1.ActiveViewIndex = 0;
-                    personalInfoButton.CssClass = "tabClicked";
-                    SkillsOwnedButton.CssClass = "tab";
-                    HobbiesButton.CssClass = "tab";
+                    
 
                     var username = Request.QueryString["m"];
 
@@ -70,7 +67,7 @@ namespace SSH3.Account
                         new SqlCommand("select userPic from users where userID=@userID", con2);
                     cmd4.Parameters.AddWithValue("@userID", username);
                     con2.Open();
-                    byte[] img = (byte[])cmd4.ExecuteScalar();
+                    string img = cmd4.ExecuteScalar().ToString();
                     con2.Close();
 
                     //if (!String.IsNullOrEmpty(filename))
@@ -82,7 +79,7 @@ namespace SSH3.Account
                     //{
                     //    userPicture.ImageUrl = @"~\UserProfilePics\profile-icon-png-905.png";
                     //}
-                    if (img == null)
+                    if (String.IsNullOrEmpty(img))
                     {
                         userPicture.ImageUrl = "/Imagesss/profile-icon-png-905.png";
                     }
@@ -99,29 +96,6 @@ namespace SSH3.Account
 
         }
 
-        protected void personalInfoButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 0;
-            personalInfoButton.CssClass = "tabClicked";
-            SkillsOwnedButton.CssClass = "tab";
-            HobbiesButton.CssClass = "tab";
-
-        }
-
-        protected void SkillsOwnedButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 1;
-            personalInfoButton.CssClass = "tab";
-            SkillsOwnedButton.CssClass = "tabClicked";
-            HobbiesButton.CssClass = "tab";
-        }
-
-        protected void HobbiesButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 2;
-            personalInfoButton.CssClass = "tab";
-            SkillsOwnedButton.CssClass = "tab";
-            HobbiesButton.CssClass = "tabClicked";
-        }
+       
     }
 }

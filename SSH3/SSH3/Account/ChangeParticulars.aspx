@@ -47,6 +47,23 @@
                                 CssClass="text-danger" Display="Dynamic" ErrorMessage="Designation is too long." />
                         </div>
                     </div>
+                     <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="FileUpload2" CssClass="col-md-2 control-label">Choose Profile Picture:</asp:Label>
+                    <div class="col-md-10">
+                        <asp:FileUpload ID="FileUpload2" runat="server" />
+                        <br />
+                   
+                        <br />
+                    </div>
+                    <br />
+                    <asp:Label runat="server" AssociatedControlID="imgDemo2" CssClass="col-md-2 control-label">Sample Output of Profile Picture:</asp:Label>
+                    <div class="col-md-10">
+                        <asp:Image ID="imgDemo2" runat="server" />
+                        <br />
+                        <br />
+                        
+                    </div>
+                </div>
                 </div>
             </asp:PlaceHolder>
             <asp:PlaceHolder runat="server" ID="menteeParticulars" Visible="false">
@@ -76,6 +93,23 @@
                                 CssClass="text-danger" Display="Dynamic" ErrorMessage="Institution is too long." />
                         </div>
                     </div>
+                     <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="FileUpload1" CssClass="col-md-2 control-label">Choose Profile Picture:</asp:Label>
+                    <div class="col-md-10">
+                        <asp:FileUpload ID="FileUpload1" runat="server" />
+                        <br />
+                      
+                        <br />
+                    </div>
+                    <br />
+                    <asp:Label runat="server" AssociatedControlID="imgDemo" CssClass="col-md-2 control-label">Sample Output of Profile Picture:</asp:Label>
+                    <div class="col-md-10">
+                        <asp:Image ID="imgDemo" runat="server" />
+                        <br />
+                        <br />
+                        
+                    </div>
+                </div>
                 </div>
             </asp:PlaceHolder>
             <div class="form-group">

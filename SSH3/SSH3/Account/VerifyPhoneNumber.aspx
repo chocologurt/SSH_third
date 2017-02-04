@@ -1,15 +1,20 @@
 ﻿<%@ Page Title="Verify Phone Number" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="VerifyPhoneNumber.aspx.cs" Inherits="SSH3.Account.VerifyPhoneNumber" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="panel panel-default">
+        <div class="panel-heading">
  <h2><%: Title %>.</h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
-    </p>
+    </p>   
+             <asp:ValidationSummary runat="server" CssClass="text-danger" />
+            </div>
+        <div class="panel-body">
     <div class="form-horizontal">
         <h4>Enter verification code</h4>
         <hr />
         <asp:HiddenField runat="server" ID="PhoneNumber" />
-        <asp:ValidationSummary runat="server" CssClass="text-danger" />
+    
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Code" CssClass="col-md-2 control-label">Code</asp:Label>
             <div class="col-md-10">
@@ -26,4 +31,6 @@
             </div>
         </div>
     </div>
+            </div>
+        </div>
 </asp:Content>

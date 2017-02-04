@@ -35,15 +35,15 @@ namespace SSH3.Account
                 if (!IsPostBack)
                 {
                     // Determine the sections to render
-                    if (HasPassword(manager))
-                    {
-                        changePasswordHolder.Visible = true;
-                    }
-                    else
-                    {
-                        setPassword.Visible = true;
-                        changePasswordHolder.Visible = false;
-                    }
+                    //if (HasPassword(manager))
+                    //{
+                    //    changePasswordHolder.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    setPassword.Visible = true;
+                    //    changePasswordHolder.Visible = false;
+                    //}
 
                     // Render success message
                     var message = Request.QueryString["m"];
@@ -78,31 +78,37 @@ namespace SSH3.Account
                 string currentPassword = "";
                 string newPassword = "";
 
-                if (YesOrNoImageCurrent.TabIndex == 0)
+                if (YesOrNoImageCurrent.SelectedValue != "Yes" && YesOrNoImageCurrent.SelectedValue != "No" )
                 {
                     ErrorMessage.Text = "Please select something in the first set of radio buttons";
+                    return;
                 }
-                if (YesOrNoImageNew.TabIndex == 0)
+                if (YesOrNoImageNew.SelectedValue != "Yes" && YesOrNoImageNew.SelectedValue != "No")
                 {
                     ErrorMessage.Text = "Please select something in the second set radio buttons";
+                    return;
                 }
 
                 if (String.IsNullOrEmpty(CurrentPassword.Text))
                 {
                     ErrorMessage.Text = "Your Current password is empty";
+                    return;
                 }
 
                 if (String.IsNullOrEmpty(NewPassword.Text) && String.IsNullOrEmpty(ConfirmNewPassword.Text))
                 {
                     ErrorMessage.Text = " Please fill in the Password textboxes";
+                    return;
                 }
                 else if (String.IsNullOrEmpty(NewPassword.Text))
                 {
                     ErrorMessage.Text = "Your New password is empty";
+                    return;
                 }
                 else if (String.IsNullOrEmpty(NewPassword.Text))
                 {
                     ErrorMessage.Text = "Your Confirm New Password is empty.";
+                    return;
                 }
 
                 if (imageCurrentPassword.Visible == true && textCurrentPassword.Visible == true)
@@ -121,17 +127,20 @@ namespace SSH3.Account
                         else
                         {
                             ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                            return;
                         }
                     }
                     else
                     {
                         ErrorMessage.Text = "Please Upload something in the current password image field.";
+                        return;
                     }
                 }
                 else if (textCurrentPassword.Visible == true && imageCurrentPassword.Visible == false)
                 {
                     currentPassword = CurrentPassword.Text;
                 }
+
                 if (imageNewPassword.Visible == true && textNewPassword.Visible == true)
                 {
                     if (newImagePasswordControl.HasFile)
@@ -148,11 +157,13 @@ namespace SSH3.Account
                         else
                         {
                             ErrorMessage.Text = "Upload Status: Only JPEG files are available for upload";
+                            return;
                         }
                     }
                     else
                     {
                         ErrorMessage.Text = "Please upload something in the new password image field.";
+                        return;
                     }
                 }
                 else if (textNewPassword.Visible == true && imageNewPassword.Visible == false)
@@ -256,23 +267,23 @@ namespace SSH3.Account
             }
         }
 
-        protected void SetPassword_Click(object sender, EventArgs e)
-        {
-            if (IsValid)
-            {
-                // Create the local login info and link the local account to the user
-                var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                IdentityResult result = manager.AddPassword(User.Identity.GetUserId(), password.Text);
-                if (result.Succeeded)
-                {
-                    Response.Redirect("~/Account/Manage?m=SetPwdSuccess");
-                }
-                else
-                {
-                    AddErrors(result);
-                }
-            }
-        }
+        //protected void SetPassword_Click(object sender, EventArgs e)
+        //{
+        //    if (IsValid)
+        //    {
+        //        // Create the local login info and link the local account to the user
+        //        var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //        IdentityResult result = manager.AddPassword(User.Identity.GetUserId(), password.Text);
+        //        if (result.Succeeded)
+        //        {
+        //            Response.Redirect("~/Account/Manage?m=SetPwdSuccess");
+        //        }
+        //        else
+        //        {
+        //            AddErrors(result);
+        //        }
+        //    }
+        //}
 
         private void AddErrors(IdentityResult result)
         {

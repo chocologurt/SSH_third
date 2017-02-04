@@ -22,10 +22,10 @@ namespace SSH3.Account
             {
                 if (!Page.IsPostBack)
                 {
-                    MultiView1.ActiveViewIndex = 0;
-                    personalInfoButton.CssClass = "tabClicked";
-                    SkillsOwnedButton.CssClass = "tab";
-                    HobbiesButton.CssClass = "tab";
+                    //MultiView1.ActiveViewIndex = 0;
+                    //personalInfoButton.CssClass = "tabClicked";
+                    //SkillsOwnedButton.CssClass = "tab";
+                    //HobbiesButton.CssClass = "tab";
 
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                     var user = manager.FindByName(Context.User.Identity.GetUserName());
@@ -104,29 +104,6 @@ namespace SSH3.Account
            
         }
 
-        protected void personalInfoButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 0;
-            personalInfoButton.CssClass = "tabClicked";
-            SkillsOwnedButton.CssClass = "tab";
-            HobbiesButton.CssClass = "tab";
-
-        }
-
-        protected void SkillsOwnedButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 1;
-            personalInfoButton.CssClass = "tab";
-            SkillsOwnedButton.CssClass = "tabClicked";
-            HobbiesButton.CssClass = "tab";
-        }
-
-        protected void HobbiesButton_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = 2;
-            personalInfoButton.CssClass = "tab";
-            SkillsOwnedButton.CssClass = "tabClicked";
-            HobbiesButton.CssClass = "tab";
-        }
+       
     }
 }

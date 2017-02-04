@@ -1,8 +1,13 @@
 ﻿<%@ Page Title="Phone Number" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddPhoneNumber.aspx.cs" Inherits="SSH3.Account.AddPhoneNumber" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <br />
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-heading">
     <h2><%: Title %>.</h2>
-
+</div>
+        <div class="panel-body">
     <div class="form-horizontal">
         <h4>Add a phone number</h4>
         <hr />
@@ -11,11 +16,11 @@
             <asp:Literal runat="server" ID="ErrorMessage" />
         </p>
         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="PhoneNumber" CssClass="col-md-2 control-label">Phone Number</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="PhoneNumber" CssClass="col-md-2 control-label" Font-Size="Large">Phone Number</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="PhoneNumber" CssClass="form-control" TextMode="Phone" />
+                <asp:TextBox runat="server" ID="PhoneNumber" CssClass="form-control" TextMode="Phone" Font-Size="Large" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="PhoneNumber"
-                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The PhoneNumber field is required." />
+                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The PhoneNumber field is required." Font-Size="Large" />
                 <asp:RegularExpressionValidator runat="server" ControlToValidate="PhoneNumber"
                     ValidationExpression="([\d]{8})"
                     CssClass="text-danger" Display="Dynamic" ErrorMessage="Invalid Phone number" />
@@ -24,8 +29,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <asp:Button runat="server" OnClick="PhoneNumber_Click"
-                    Text="Submit" CssClass="btn btn-default" />
+                    Text="Submit" CssClass="btn btn-default" Font-Size="Large" />
             </div>
         </div>
     </div>
+            </div>
+        </div>
 </asp:Content>

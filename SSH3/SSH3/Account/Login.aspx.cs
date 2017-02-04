@@ -42,10 +42,14 @@ namespace SSH3.Account
                 {
                     
                     FailureText.Text = " Please fill in the Password textboxes";
+                    ErrorMessage.Visible = true;
+                    return;
                 }
-                if (YesOrNoImage.TabIndex == 0)
+                if (YesOrNoImage.SelectedValue != "Yes" && YesOrNoImage.SelectedValue != "No")
                 {
                     FailureText.Text = "Please select something in the radio buttons";
+                    ErrorMessage.Visible = true;
+                    return;
                 }
 
                 string password = "";
@@ -61,7 +65,7 @@ namespace SSH3.Account
 
                     string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
 
-                        if (fileExt == ".jpg")
+                        if (fileExt == ".jpg" || fileExt == ".png")
                     {
                         
                             // string filename = Path.GetFileName(imagePasswordControl.FileName);
@@ -74,6 +78,7 @@ namespace SSH3.Account
                         else
                         {
                             FailureText.Text = "Upload Status: Only JPEG files are available for upload";
+                            return;
                         }
                     }
 

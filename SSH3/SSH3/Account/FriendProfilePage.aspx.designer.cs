@@ -13,15 +13,6 @@ namespace SSH3.Account {
     public partial class FriendProfilePage {
         
         /// <summary>
-        /// profilemain control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl profilemain;
-        
-        /// <summary>
         /// userPicture control.
         /// </summary>
         /// <remarks>
@@ -49,58 +40,13 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.Label userFullNameText;
         
         /// <summary>
-        /// personalInfoButton control.
+        /// tabContents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button personalInfoButton;
-        
-        /// <summary>
-        /// SkillsOwnedButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SkillsOwnedButton;
-        
-        /// <summary>
-        /// HobbiesButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button HobbiesButton;
-        
-        /// <summary>
-        /// content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl content;
-        
-        /// <summary>
-        /// MultiView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.MultiView MultiView1;
-        
-        /// <summary>
-        /// personalInfoView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View personalInfoView;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabContents;
         
         /// <summary>
         /// userUsernameLabel control.
@@ -175,15 +121,6 @@ namespace SSH3.Account {
         protected global::System.Web.UI.WebControls.Label userDesignationText;
         
         /// <summary>
-        /// skillsOwnedView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View skillsOwnedView;
-        
-        /// <summary>
         /// SkillsGridView control.
         /// </summary>
         /// <remarks>
@@ -191,15 +128,6 @@ namespace SSH3.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView SkillsGridView;
-        
-        /// <summary>
-        /// HobbiesView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View HobbiesView;
         
         /// <summary>
         /// HobbiesGridView control.
