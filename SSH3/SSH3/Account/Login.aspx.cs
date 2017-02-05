@@ -94,7 +94,7 @@ namespace SSH3.Account
                 }
 
 
-
+                    //To check is google captcha is valided.
                 if (Validates())
                 {
 
