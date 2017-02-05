@@ -23,7 +23,15 @@ namespace SSH3.Account
         {
             if (reasonDropDownList.SelectedValue == "3")
             {
+                //otherReasonTxtBox.Visible = true;
+                //otherReasonLabel.Visible = true;
                 otherReasonDiv.Visible = true;
+            }
+            else if(reasonDropDownList.SelectedValue != "3")
+            {
+                //otherReasonLabel.Visible = false;
+                //otherReasonTxtBox.Visible = true;
+                otherReasonDiv.Visible = false;
             }
         }
 

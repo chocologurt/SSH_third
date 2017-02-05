@@ -83,13 +83,13 @@
                   
                         <div class="form-group">
                             <asp:GridView ID="SkillsGridView" runat="server" BackColor="White" BorderColor="#999999"
-                                BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical"
+                                BorderStyle="None" BorderWidth="1px" CellPadding="3" Width="100%" GridLines="Vertical"
                                 SelectedRowStyle-BackColor="#FFFF99">
                                 <AlternatingRowStyle BackColor="#DCDCDC" />
                                 <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                <HeaderStyle BackColor="#002db3" Font-Bold="True" ForeColor="White" />
+                                <HeaderStyle BackColor="#002db3" Font-Bold="True" ForeColor="White" Font-Size="Large"/>
                                 <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
+                                <RowStyle BackColor="#EEEEEE" ForeColor="Black" Font-Size="Medium" />
 
                             </asp:GridView>
                         </div>

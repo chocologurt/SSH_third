@@ -13,7 +13,7 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Email" CssClass="col-md-2 control-label">Email</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" AutoCompleteType="off" />
+                <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" autocomplete="off" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
                     CssClass="text-danger" ErrorMessage="The email field is required." />
             </div>
@@ -40,6 +40,7 @@
             </div>
         </div>
         </div>
+            </div>
                 <div class="form-group">
             <asp:Label runat="server" ID="imagePasswordEnabled" AssociatedControlID="YesOrNoImage" CssClass="col-md-2 control-label">Do you want a image to use together with your above text as a password?</asp:Label>
             <div class="col-md-10">

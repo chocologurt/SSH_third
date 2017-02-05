@@ -13,6 +13,15 @@ namespace SSH3.Account {
     public partial class DeactivateAccount {
         
         /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ErrorMessage;
+        
+        /// <summary>
         /// reasonDropDownList control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace SSH3.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl otherReasonDiv;
+        
+        /// <summary>
+        /// otherReasonLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label otherReasonLabel;
         
         /// <summary>
         /// otherReasonTxtBox control.

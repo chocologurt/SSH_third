@@ -224,6 +224,7 @@
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\DeactivateAccount.aspx" />
     <Content Include="Account\EmailBeingSent.aspx" />
+    <Content Include="Account\EmailTemplate.html" />
     <Content Include="Account\Forgot.aspx" />
     <Content Include="Account\FriendProfilePage.aspx" />
     <Content Include="Account\Lockout.aspx" />

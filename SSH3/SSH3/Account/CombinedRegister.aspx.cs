@@ -26,6 +26,18 @@ namespace SSH3.Account
                 ConfirmPassword.Attributes.Add("value", ConfirmPassword.Text);
             }
         }
+        // A Method to Configure EmailTemplate HTML
+        private string PopulateBody(string userName, string url)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("EmailTemplate.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{UserName}", userName);
+            body = body.Replace("{Url}", url);
+            return body;
+        }
 
         protected void CreateUser_Click(object sender, EventArgs e)
         {
@@ -136,7 +148,13 @@ namespace SSH3.Account
                     //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     string code = manager.GenerateEmailConfirmationToken(user.Id);
                     string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
-                    manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
+
+                    // Configurating the Email body Using Created HTML Template
+                    string body = this.PopulateBody(user.UserName, callbackUrl);
+
+
+                    manager.SendEmail(user.Id, "Confirm your account", body);
+                    //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
 
                     //Configurating the Email Body using Created HTML Template
                     //string body = this.PopulateBody(user.UserName, callbackUrl);

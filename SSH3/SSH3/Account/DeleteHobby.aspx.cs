@@ -28,7 +28,7 @@ namespace SSH3.Account
 
                     string cs = System.Configuration.ConfigurationManager.ConnectionStrings[dbConn].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
-                    SqlCommand cmd = new SqlCommand("select * from userHobbies where Username = @userId", con);
+                    SqlCommand cmd = new SqlCommand("select NameOfHobby, HobbySerialCode, TypeOfHobby, AcroymnOfType from userHobbies where Username = @userId", con);
                     cmd.Parameters.AddWithValue("@userId", user.UserName);
                     SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();

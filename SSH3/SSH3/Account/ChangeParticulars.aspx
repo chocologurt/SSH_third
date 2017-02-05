@@ -1,10 +1,29 @@
 ﻿<%@ Page Title="Change Particulars" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ChangeParticulars.aspx.cs" Inherits="SSH3.Account.ChangeParticulars" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+        #changeParticularsPanel{
+              padding: 4px 18px 4px 18px;
+            color: black;
+            background-color: seashell;
+            border: 1px solid black;
+        }
+        #panelHeading{
+ padding: 4px 18px 4px 18px;
+            color: black;
+            background-color: seashell;
+        }
+    </style>
+    <br />
+    <br />
+    <div class="panel panel-default" id="changeParticularsPanel">
+        <div class="panel-heading" id="panelHeading">
     <h2><%: Title %>.</h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>
+            </div>
+        <br />
     <div class="form-horizontal">
         <section id="changeParticularsForm">
             <asp:PlaceHolder runat="server" ID="mentorParticulars" Visible="false">
@@ -58,7 +77,7 @@
                     <br />
                     <asp:Label runat="server" AssociatedControlID="imgDemo2" CssClass="col-md-2 control-label">Sample Output of Profile Picture:</asp:Label>
                     <div class="col-md-10">
-                        <asp:Image ID="imgDemo2" runat="server" />
+                        <asp:Image ID="imgDemo2" runat="server" Height="100px" Width="100px" />
                         <br />
                         <br />
                         
@@ -104,7 +123,7 @@
                     <br />
                     <asp:Label runat="server" AssociatedControlID="imgDemo" CssClass="col-md-2 control-label">Sample Output of Profile Picture:</asp:Label>
                     <div class="col-md-10">
-                        <asp:Image ID="imgDemo" runat="server" />
+                        <asp:Image ID="imgDemo" runat="server"  Height="100px" Width="100px" />
                         <br />
                         <br />
                         
@@ -113,8 +132,16 @@
                 </div>
             </asp:PlaceHolder>
             <div class="form-group">
+                <asp:Label runat="server" CssClass="col-md-2 control-label">&nbsp;</asp:Label>
+                <div class="col-md-10">
                 <asp:Button ID="changeParticularsBtn" runat="server" OnClick="changeParticularsBtn_Click" Text="Submit Particulars" />
             </div>
+
+            </div> 
+
         </section>
-    </div>
+            </div>
+      </div>
+
+       
 </asp:Content>
