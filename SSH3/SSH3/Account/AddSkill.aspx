@@ -1,15 +1,29 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddSkill.aspx.cs" Inherits="SSH3.Account.AddSkill" %>
+﻿<%@ Page Title="Add Skills" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddSkill.aspx.cs" Inherits="SSH3.Account.AddSkill" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    <script type="text/javascript">
        function confirmNewSkillModal() {
            $('#addSkillPortion').modal('show');
        }
    </script>
-    
+    <style type="text/css">
+        #addSkillPanel{
+             padding: 4px 18px 4px 18px;
+            color: black;
+            background-color: cornsilk;
+            border: 1px solid black;
+        }
+        #panelHeader{
+            background-color: cornsilk;
+        }
+    </style>
+    <div class="panel panel-default" id="addSkillPanel">
+        <div class="panel-heading" id="panelHeader">
      <h2><%: Title %></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>
+            </div>
+        <div class="panel-body">
     <div class="form-horizontal">
         <section id="addSkillForm">
             <div class="form-horizontal">
@@ -51,4 +65,6 @@
             </div>
         </div>
     </div>
+            </div>
+        </div>
 </asp:Content>

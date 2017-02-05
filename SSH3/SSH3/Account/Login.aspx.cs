@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using SSH3.Models;
 using System.IO;
+using System.Net;
+using System.Web.Script.Serialization;
 
 namespace SSH3.Account
 {
@@ -38,6 +40,7 @@ namespace SSH3.Account
         {
             if (IsValid)
             {
+
                 if (String.IsNullOrEmpty(Password.Text) )
                 {
                     
@@ -53,89 +56,103 @@ namespace SSH3.Account
                 }
 
                 string password = "";
-                if (textPassword.Visible == true && imagePassword.Visible == false)
-                {
-                    password = Password.Text;
-                }
+                    if (textPassword.Visible == true && imagePassword.Visible == false)
+                    {
+                        password = Password.Text;
+                    }
 
-                else if (imagePassword.Visible == true && imagePassword.Visible == true)
-                {
-                    if (imagePasswordControl.HasFile)
+                    else if (imagePassword.Visible == true && imagePassword.Visible == true)
+                    {
+                        if (imagePasswordControl.HasFile)
                         {
 
-                    string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
+                            string fileExt = Path.GetExtension(imagePasswordControl.PostedFile.FileName);
 
-                        if (fileExt == ".jpg" || fileExt == ".png")
-                    {
-                        
-                            // string filename = Path.GetFileName(imagePasswordControl.FileName);
-                            byte[] imgbyte = imagePasswordControl.FileBytes;
-                            //convert byte[] to Base64 string
-                            string base64ImgString = Convert.ToBase64String(imgbyte);
-                            password = Password.Text + base64ImgString;
+                            if (fileExt == ".jpg" || fileExt == ".png")
+                            {
+
+                                // string filename = Path.GetFileName(imagePasswordControl.FileName);
+                                byte[] imgbyte = imagePasswordControl.FileBytes;
+                                //convert byte[] to Base64 string
+                                string base64ImgString = Convert.ToBase64String(imgbyte);
+                                password = Password.Text + base64ImgString;
+                            }
+
+                            else
+                            {
+                                FailureText.Text = "Upload Status: Only JPEG files are available for upload";
+                                return;
+                            }
                         }
 
                         else
                         {
-                            FailureText.Text = "Upload Status: Only JPEG files are available for upload";
-                            return;
-                        }
-                    }
 
-                    else
-                    {
-                        
-                        FailureText.Text = "Please uplaod something.";
-                    }
+                            FailureText.Text = "Please uplaod something.";
+                        }
+                    
                 }
 
 
 
-
-                // Validate the user password
-                var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
-
-
-                // Require the user to have a confirmed email before they can log on.
-                var user = manager.FindByName(userName.Text);
-                if (user != null)
+                if (Validates())
                 {
-                    if (!user.EmailConfirmed)
+
+                    // Validate the user password
+                    var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+
+                    // Require the user to have a confirmed email before they can log on.
+                    var user = manager.FindByName(userName.Text);
+                    if (user != null)
                     {
-                        FailureText.Text = "Invalid login attempt. You must have a confirmed email address.";
-                        ErrorMessage.Visible = true;
-                        ResendConfirm.Visible = true;
+                        if (!user.EmailConfirmed)
+                        {
+                            FailureText.Text = "Invalid login attempt. You must have a confirmed email address.";
+                            ErrorMessage.Visible = true;
+                            ResendConfirm.Visible = true;
+                        }
+                        else
+                        {
+                            manager.UpdateSecurityStamp(user.Id);
+                            // This doen't count login failures towards account lockout
+                            // To enable password failures to trigger lockout, change to shouldLockout: true
+                            var result = signinManager.PasswordSignIn(userName.Text, password, RememberMe.Checked, shouldLockout: true);
+
+                            switch (result)
+                            {
+                                case SignInStatus.Success:
+                                    IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                                    break;
+                                case SignInStatus.LockedOut:
+                                    Response.Redirect("/Account/Lockout");
+                                    break;
+                                case SignInStatus.RequiresVerification:
+                                    Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
+                                                                    Request.QueryString["ReturnUrl"],
+                                                                    RememberMe.Checked),
+                                                      true);
+                                    break;
+                                case SignInStatus.Failure:
+                                default:
+                                    FailureText.Text = "Invalid login attempt";
+                                    ErrorMessage.Visible = true;
+                                    break;
+                            }
+
+                        }
                     }
                     else
                     {
-                        manager.UpdateSecurityStamp(user.Id);
-                        // This doen't count login failures towards account lockout
-                        // To enable password failures to trigger lockout, change to shouldLockout: true
-                        var result = signinManager.PasswordSignIn(userName.Text, password, RememberMe.Checked, shouldLockout: true);
-
-                        switch (result)
-                        {
-                            case SignInStatus.Success:
-                                IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
-                                break;
-                            case SignInStatus.LockedOut:
-                                Response.Redirect("/Account/Lockout");
-                                break;
-                            case SignInStatus.RequiresVerification:
-                                Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
-                                                                Request.QueryString["ReturnUrl"],
-                                                                RememberMe.Checked),
-                                                  true);
-                                break;
-                            case SignInStatus.Failure:
-                            default:
-                                FailureText.Text = "Invalid login attempt";
-                                ErrorMessage.Visible = true;
-                                break;
-                        }
-                      
+                        FailureText.Text = "No such user found";
+                        ErrorMessage.Visible = true;
                     }
+                }
+                else
+                {
+                    FailureText.Text = "Captcha Invalid";
+                    ErrorMessage.Visible = true;
                 }
             }
         }
@@ -186,6 +203,41 @@ namespace SSH3.Account
             }
 
 
+        }
+        public bool Validates()
+        {
+            // Getting Response String Appned to Post Method
+            string Response = Request["g-recaptcha-response"];
+            bool Valid = false;
+            // Request to Google Server
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=6LchHRMUAAAAAD04mbR-MYLGginbbojlsEcoN1TT&response=" + Response);
+            try
+            {
+                // Google recaptcha Response
+                using (WebResponse wResponse = req.GetResponse())
+                {
+                    using (StreamReader readStream = new StreamReader(wResponse.GetResponseStream()))
+                    {
+                        string jsonResponse = readStream.ReadToEnd();
+
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        // Deserialize Json
+                        MyObject data = js.Deserialize<MyObject>(jsonResponse);
+
+                        Valid = Convert.ToBoolean(data.success);
+                    }
+                }
+                return Valid;
+            }
+            catch (WebException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public class MyObject
+        {
+            public string success { get; set; }
         }
     }
 }
