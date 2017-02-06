@@ -31,6 +31,17 @@ namespace SSH3.Account
             }
         }
 
+        private string PopulateBody(string userName)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("ResetPasswordConfirmationEmail.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{UserName}", userName);
+           
+            return body;
+        }
         protected void Reset_Click(object sender, EventArgs e)
         {
             string code = IdentityHelper.GetCodeFromRequest(Request);
@@ -120,7 +131,14 @@ namespace SSH3.Account
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     //string code2 = manager.GenerateEmailConfirmationToken(user.Id);
                     //string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
-                    manager.SendEmail(user.Id, "Password has been reset", "Your Password has been reset.");
+                    //manager.SendEmail(user.Id, "Password has been reset", "Your Password has been reset.");
+
+
+                    // Configurating the Email body Using Created HTML Template
+                    string body = this.PopulateBody(user.UserName);
+
+
+                    manager.SendEmail(user.Id, "Confirm your account", body);
 
 
                     Response.Redirect("~/Account/ResetPasswordConfirmation");

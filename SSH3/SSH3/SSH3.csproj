@@ -240,6 +240,8 @@
     <Content Include="Account\RegistrationSelection.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Account\ResetPasswordConfirmationEmail.html" />
+    <Content Include="Account\ResetPasswordEmail.html" />
     <Content Include="Account\SettingsOrProfile.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
