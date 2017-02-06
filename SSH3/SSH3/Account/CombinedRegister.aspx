@@ -1,9 +1,32 @@
 ﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CombinedRegister.aspx.cs" Inherits="SSH3.Account.CombinedRegister" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
       <h2><%: Title %>.</h2>
-    <p class="text-danger">
+   
+    <div class="alert alert-dismissible alert-info">
+        <p>
+            <strong>Hey, Look Here!</strong>
+            <br />
+           <mark> <em>Your Text Password</em></mark> Needs to contain:
+            <ul>
+                <li>
+                    At Least 8 characters
+                </li>
+                <li>
+                    Alphanumeric characters
+                </li>
+                <li>
+                    At least 1 digit
+                </li>
+                <li> 
+                    At least 1 special character
+                </li>
+            </ul>
+        </p>
+         <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>
+        </div>
+
 
     <div class="form-horizontal">
         <h4>Create a new account</h4>
